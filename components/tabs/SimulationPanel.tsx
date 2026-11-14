@@ -39,8 +39,8 @@ export default function SimulationPanel({ viz }: Props) {
         cited PSI investigations; nothing here is a measured flame.
       </p>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_22rem]">
-        <div>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div className="min-w-0">
           <div className="relative h-[380px] border border-flame/15 md:h-[460px]">
             <FlameCanvas params={params} reduced={reduced} fpsRef={fpsRef} />
             <p className="pointer-events-none absolute left-3 top-3 font-data text-[0.64rem] tracking-[0.12em] text-slate">
@@ -63,7 +63,7 @@ export default function SimulationPanel({ viz }: Props) {
           </div>
         </div>
 
-        <aside className="border-t border-flame/20 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+        <aside className="min-w-0 border-t border-flame/20 pt-5 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
           <WhatTheDataSays viz={viz} params={params} />
         </aside>
       </div>

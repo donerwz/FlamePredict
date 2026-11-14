@@ -19,7 +19,7 @@ function ExpLinks({ items }: { items: VizExperiment[] }) {
   return (
     <>
       {items.map((e, i) => (
-        <span key={e.acc} className="whitespace-nowrap">
+        <span key={e.acc}>
           {i > 0 && ", "}
           <a
             href={`https://doi.org/${e.doi}`}
@@ -60,7 +60,10 @@ export default function WhatTheDataSays({ viz, params }: Props) {
   const sustained = isSustained(params);
 
   return (
-    <section aria-labelledby="data-says-heading" className="text-xs leading-relaxed">
+    <section
+      aria-labelledby="data-says-heading"
+      className="min-w-0 break-words text-xs leading-relaxed"
+    >
       <h3
         id="data-says-heading"
         className="text-sm font-semibold text-icewhite"
