@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EdgeBlur from "@/components/EdgeBlur";
 import { pages, resolveCitations } from "@/lib/pages";
 import type { PageItem, PageSection } from "@/lib/schema";
 
@@ -66,7 +67,8 @@ export default function ContentPage({
 }: ContentPageProps) {
   return (
     <div className="mx-auto min-h-svh max-w-6xl px-[clamp(1.25rem,6vw,5.5rem)]">
-      <header className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-6">
+      <EdgeBlur />
+      <header className="relative z-20 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-6">
         <Link href="/" className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </Link>
@@ -129,7 +131,7 @@ export default function ContentPage({
         ))}
       </main>
 
-      <footer className="border-t border-flame/20 py-10">
+      <footer className="border-t border-flame/20 pb-24 pt-10">
         <p className="readout readout--dim">
           DATA: NASA PHYSICAL SCIENCES INFORMATICS (PSI)
         </p>

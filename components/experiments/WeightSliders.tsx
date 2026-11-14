@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import { DEFAULT_WEIGHTS, type Weights } from "@/lib/score";
 
 interface WeightSlidersProps {
@@ -96,8 +97,8 @@ export default function WeightSliders({ weights, onChange }: WeightSlidersProps)
       {showAxes && (
         <motion.dl
           id="axis-legend"
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={reduced ? false : { opacity: 0, y: 6, filter: BLUR_SOFT }}
+          animate={SETTLED}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="mt-4 border-b border-flame/15"
         >

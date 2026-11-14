@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import RankBar from "./RankBar";
 import type { Weights } from "@/lib/score";
 import type { ExperimentWithFamily } from "@/lib/stats";
@@ -26,8 +27,8 @@ export default function RowDetail({ e, weights, reduced, id }: RowDetailProps) {
   return (
     <motion.div
       id={id}
-      initial={reduced ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={reduced ? false : { opacity: 0, y: 6, filter: BLUR_SOFT }}
+      animate={SETTLED}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="border-t border-flame/10 pb-7 pt-5"
     >

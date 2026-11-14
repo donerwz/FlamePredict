@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import CountUp from "./CountUp";
 import Stars from "@/components/experiments/Stars";
 import type { OverviewStats } from "@/lib/stats";
@@ -108,8 +109,8 @@ export default function OverviewPanel({ stats, top }: OverviewPanelProps) {
             <motion.li
               key={e.acc}
               className="min-w-[230px] flex-1 border-t border-flame/20 pt-4 lg:min-w-0"
-              initial={reduced ? false : { opacity: 0, x: 28 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={reduced ? false : { opacity: 0, x: 28, filter: BLUR_SOFT }}
+              whileInView={SETTLED}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, ease: "easeOut", delay: i * 0.08 }}
             >

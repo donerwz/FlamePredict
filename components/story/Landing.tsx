@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Flame from "./Flame";
 import Starfield from "./Starfield";
+import EdgeBlur from "@/components/EdgeBlur";
+import { BLUR_DISSOLVE, BLUR_SHARP, BLUR_SOFT } from "@/lib/motion";
 
 interface LandingProps {
   count: number;
@@ -109,12 +111,19 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         },
       });
 
-      tl.to(".js-beat1", { autoAlpha: 0, y: -28, duration: 0.8, ease: "power1.in" }, 2.2)
-        .to(".js-tear", { autoAlpha: 0, duration: 1.2 }, 2.6)
+      // Motion blur (lib/motion.ts): beats soften as they leave and resolve
+      // to sharp as they land; the teardrop dissolves like dispersing smoke
+      // while the sphere comes into focus.
+      tl.to(
+        ".js-beat1",
+        { autoAlpha: 0, y: -28, filter: BLUR_SOFT, duration: 0.8, ease: "power1.in" },
+        2.2,
+      )
+        .to(".js-tear", { autoAlpha: 0, filter: BLUR_DISSOLVE, duration: 1.2 }, 2.6)
         .fromTo(
           ".js-sphere",
-          { autoAlpha: 0, scale: 0.72 },
-          { autoAlpha: 1, scale: 1, duration: 1.4, ease: "power1.out" },
+          { autoAlpha: 0, scale: 0.72, filter: BLUR_DISSOLVE },
+          { autoAlpha: 1, scale: 1, filter: BLUR_SHARP, duration: 1.4, ease: "power1.out" },
           2.8,
         )
         .to(
@@ -131,21 +140,32 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         .to(".js-gfill", { scaleY: 0, duration: 1.8 }, 2.6)
         .fromTo(
           ".js-beat2",
-          { autoAlpha: 0, y: 36 },
-          { autoAlpha: 1, y: 0, duration: 0.9, ease: "power1.out" },
+          { autoAlpha: 0, y: 36, filter: BLUR_SOFT },
+          { autoAlpha: 1, y: 0, filter: BLUR_SHARP, duration: 0.9, ease: "power1.out" },
           3.0,
         )
-        .to(".js-beat2", { autoAlpha: 0, y: -28, duration: 0.8, ease: "power1.in" }, 6.2)
+        .to(
+          ".js-beat2",
+          { autoAlpha: 0, y: -28, filter: BLUR_SOFT, duration: 0.8, ease: "power1.in" },
+          6.2,
+        )
         .fromTo(
           ".js-beat3",
-          { autoAlpha: 0, y: 36 },
-          { autoAlpha: 1, y: 0, duration: 0.9, ease: "power1.out" },
+          { autoAlpha: 0, y: 36, filter: BLUR_SOFT },
+          { autoAlpha: 1, y: 0, filter: BLUR_SHARP, duration: 0.9, ease: "power1.out" },
           7.0,
         )
         .fromTo(
           ".js-stat",
-          { autoAlpha: 0, y: 10 },
-          { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.15, ease: "power1.out" },
+          { autoAlpha: 0, y: 10, filter: BLUR_SOFT },
+          {
+            autoAlpha: 1,
+            y: 0,
+            filter: BLUR_SHARP,
+            duration: 0.5,
+            stagger: 0.15,
+            ease: "power1.out",
+          },
           7.6,
         )
         .to({}, { duration: 1.2 }); // hold beat 3 before unpinning
@@ -164,6 +184,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
   return (
     <div ref={rootRef}>
       <Starfield />
+      <EdgeBlur />
       <a
         href="#destinations"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-void focus:px-3 focus:py-2 focus:text-flame"
@@ -171,7 +192,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         Skip the story
       </a>
 
-      <header className="absolute inset-x-0 top-0 z-10 flex items-baseline justify-between px-[clamp(1.25rem,6vw,5.5rem)] py-6">
+      <header className="absolute inset-x-0 top-0 z-20 flex items-baseline justify-between px-[clamp(1.25rem,6vw,5.5rem)] py-6">
         <p className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </p>
@@ -281,7 +302,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         </section>
       </main>
 
-      <footer className="mx-auto max-w-6xl border-t border-flame/20 px-[clamp(1.25rem,6vw,5.5rem)] py-10">
+      <footer className="mx-auto max-w-6xl border-t border-flame/20 px-[clamp(1.25rem,6vw,5.5rem)] pb-24 pt-10">
         <p className="readout readout--dim">
           DATA: NASA PHYSICAL SCIENCES INFORMATICS (PSI)
         </p>

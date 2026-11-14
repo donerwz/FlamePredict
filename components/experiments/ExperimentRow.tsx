@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { BLUR_SHARP, BLUR_SOFT } from "@/lib/motion";
 import Stars from "./Stars";
 import RowDetail from "./RowDetail";
 import type { Weights } from "@/lib/score";
@@ -32,10 +33,18 @@ export default function ExperimentRow({
   return (
     <motion.li
       layout={reduced ? false : "position"}
-      transition={{ layout: { duration: 0.5, ease: "easeOut" } }}
-      initial={reduced ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={reduced ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
+      transition={{
+        duration: 0.35,
+        ease: "easeOut",
+        layout: { duration: 0.5, ease: "easeOut" },
+      }}
+      initial={reduced ? false : { opacity: 0, filter: BLUR_SOFT }}
+      animate={{ opacity: 1, filter: BLUR_SHARP, transitionEnd: { filter: "none" } }}
+      exit={
+        reduced
+          ? undefined
+          : { opacity: 0, filter: BLUR_SOFT, transition: { duration: 0.3, ease: "easeOut" } }
+      }
       className="border-t border-flame/20"
     >
       <div className="grid gap-x-5 gap-y-2 py-5 md:grid-cols-[3rem_1fr_auto]">

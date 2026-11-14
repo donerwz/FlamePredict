@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, useInView, useReducedMotion } from "motion/react";
+import { MOTION_BLUR_PX } from "@/lib/motion";
 
 interface CountUpProps {
   value: number;
@@ -26,14 +27,24 @@ export default function CountUp({ value, decimals = 0, className }: CountUpProps
       el.textContent = (0).toFixed(decimals);
       return;
     }
+    // Motion blur tied to speed: the eased progress is fastest at the start,
+    // so the digits start blurred and sharpen as the count settles.
     const controls = animate(0, value, {
       duration: 0.8,
       ease: "easeOut",
       onUpdate: (v) => {
         el.textContent = v.toFixed(decimals);
+        const progress = value ? v / value : 1;
+        el.style.filter = `blur(${(MOTION_BLUR_PX * (1 - progress)).toFixed(2)}px)`;
+      },
+      onComplete: () => {
+        el.style.filter = "none";
       },
     });
-    return () => controls.stop();
+    return () => {
+      controls.stop();
+      el.style.filter = "none";
+    };
   }, [inView, reduced, value, decimals]);
 
   return (

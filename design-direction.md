@@ -49,7 +49,8 @@ gravity readout ticks 1.00 g → 0.00 g.
 - The Earth flame **flickers** (tiny transform jitter); the microgravity flame
   is **still**. Stillness is a deliberate, meaningful state — resist adding
   idle "breathing" loops to things.
-- Animate **transform and opacity only**. Triggered (non-scrubbed) animations:
+- Animate **transform and opacity only** — plus `filter: blur()` for the
+  blur-settle accent below, nothing else. Triggered (non-scrubbed) animations:
   300–800 ms, ease-out. Scroll-scrubbed timelines are position-mapped, not
   clock-mapped — keep segment proportions so nothing feels abrupt.
 - One orchestrated moment per page. No per-section fade-up entrances, no hover
@@ -58,6 +59,32 @@ gravity readout ticks 1.00 g → 0.00 g.
 - `prefers-reduced-motion`: no Lenis, no scrub, no flicker. Content renders
   stacked in normal flow with the flame in its final (sphere) state. This is
   the no-JS rendering too.
+- **Motion blur — "blur-settle".** The site's single motion signature. Things
+  arriving come into focus; things leaving go out of focus — like a flame seen
+  through chamber glass, or a camera pulling focus. It pairs with movement,
+  never replaces it:
+  - Entrance: `opacity 0 → 1`, a short offset (6–36 px) → 0, and
+    `blur(6px) → blur(0)`, all on the same ease-out curve and duration
+    (300–800 ms, or the matching scrub segment). Motion ends with
+    `filter: none` (`SETTLED` in `lib/motion.ts`).
+  - Exit: the mirror — fade, move, and soften to `blur(6px)` with an ease-in or
+    ease-out curve.
+  - Dissolve: large illustrative elements (the landing teardrop → sphere) use
+    `blur(8px)` so the change reads as smoke dispersing / focus pulling.
+  - Tokens: `BLUR_SOFT` (6px), `BLUR_DISSOLVE` (8px), `BLUR_SHARP`, `SETTLED`.
+    Never hand-write a blur radius in a component; never exceed 8px.
+  - Where it lives today: landing beats 1–3 and their stats, the landing flame
+    dissolve, Explore tab-panel switches, top-5 overview cards, experiment rows
+    entering/leaving on filter, row detail panels, the F/M/P/D axis legend.
+  - Count-ups: the one speed-driven case. Blur = 6px × (1 − eased progress),
+    so the digits blur while they spin fastest and resolve as the number
+    lands, then `filter: none` (Data overview stat tiles, treemap total).
+  - Where it never goes: re-rank layout glides (rows must stay readable while
+    moving), chart marks and axes (data stays crisp), live readouts (slider
+    values, FPS, gravity meter), hover/focus states, the WebGL flame,
+    parallax/starfield.
+  - Performance: blur only elements up to roughly a text column or the flame
+    illustration — never full-viewport layers. Reduced motion skips it entirely.
 - Starfield background: three fixed layers of dim blue-white dots
   (alpha ≤ 0.6), parallax-scrubbed slower than content for depth. Stars never
   outshine the flame, and they hold still under reduced motion.

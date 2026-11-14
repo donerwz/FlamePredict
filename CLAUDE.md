@@ -28,7 +28,12 @@ Next.js (App Router) + TypeScript (strict) · Tailwind CSS · three.js via @reac
 - Every preset (ISS, Moon, Mars, Earth) lists the PSI experiments that support it. For 0 < g < 1, show "No PSI data at this gravity".
 
 ## Animation and UX
-- Animate only transform and opacity. Use 300–800 ms with ease-out. Charts animate on scroll-in and on data change, not on every re-render.
+- Animate only transform and opacity — plus `filter: blur()` for the motion-blur accent below. Use 300–800 ms with ease-out. Charts animate on scroll-in and on data change, not on every re-render.
+- Motion blur ("blur-settle", full spec in `design-direction.md` §3): elements that enter or leave the screen blur as they move — they start soft and resolve to sharp on arrival, and soften as they exit. Always use the tokens in `lib/motion.ts` (`BLUR_SOFT` 6px, `BLUR_DISSOLVE` 8px for large illustrations, `SETTLED` as the Motion end state). Never exceed 8px.
+  - Apply to: section/beat entrances and exits, tab-panel switches, cards and rows appearing or disappearing, disclosure panels opening.
+  - Count-ups (`CountUp`) blur in proportion to their speed: blurriest at the start, sharp as the count settles, `filter: none` when done.
+  - Never apply to: layout reorders (re-ranking glide), chart and data marks, live readouts (slider values, FPS, gravity meter), hover/focus feedback, the 3D canvas, or anything scrolled continuously (parallax).
+  - Motion entrances end with `filter: none` (`SETTLED`'s `transitionEnd`) so text renders crisply. Reduced motion: no blur at all.
 - Respect `prefers-reduced-motion`: show final states with no motion.
 - Mobile-first and accessible: keyboard-navigable tabs, alt text, WCAG AA contrast, visible focus states.
 - Lazy-load the 3D canvas and heavy charts. Target 60 fps.

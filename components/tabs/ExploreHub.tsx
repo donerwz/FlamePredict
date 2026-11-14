@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
+import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import OverviewPanel from "./OverviewPanel";
 import ExperimentsPanel from "@/components/experiments/ExperimentsPanel";
 import VisualizationPanel from "./VisualizationPanel";
@@ -130,8 +131,8 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
           aria-labelledby={`tab-${active}`}
           tabIndex={0}
           className="pt-10"
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={reduced ? false : { opacity: 0, y: 10, filter: BLUR_SOFT }}
+          animate={SETTLED}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {active === "overview" && <OverviewPanel stats={stats} top={top} />}
