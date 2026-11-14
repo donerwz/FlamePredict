@@ -6,7 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import OverviewPanel from "./OverviewPanel";
 import ExperimentsPanel from "@/components/experiments/ExperimentsPanel";
+import VisualizationPanel from "./VisualizationPanel";
 import type { ExperimentWithFamily, OverviewStats } from "@/lib/stats";
+import type { VizExperiment } from "@/lib/conditions";
 import type { Experiment } from "@/lib/schema";
 
 const TABS = [
@@ -22,6 +24,7 @@ interface ExploreHubProps {
   stats: OverviewStats;
   top: Experiment[];
   all: ExperimentWithFamily[];
+  viz: VizExperiment[];
 }
 
 function TabStub({ title, phase }: { title: string; phase: number }) {
@@ -37,7 +40,7 @@ function TabStub({ title, phase }: { title: string; phase: number }) {
   );
 }
 
-export default function ExploreHub({ stats, top, all }: ExploreHubProps) {
+export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const reduced = useReducedMotion();
@@ -146,7 +149,7 @@ export default function ExploreHub({ stats, top, all }: ExploreHubProps) {
           {active === "overview" && <OverviewPanel stats={stats} top={top} />}
           {active === "experiments" && <ExperimentsPanel all={all} />}
           {active === "visualization" && (
-            <TabStub title="Visualization" phase={5} />
+            <VisualizationPanel viz={viz} totalTb={stats.totalTb} />
           )}
           {active === "simulation" && (
             <TabStub title="Flames in Freefall simulation" phase={6} />

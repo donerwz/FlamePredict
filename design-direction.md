@@ -74,6 +74,21 @@ gravity readout ticks 1.00 g → 0.00 g.
 - Structure devices (rules, tags, readouts) must encode real information —
   a 5by7 string should always be an actual value, ID, or route.
 
+## 4a. Charts (Phase 5)
+
+- Numeric chart values come from `data/conditions.json` — envelopes hand-extracted
+  from the prose in `experiments.json`, null where the source states no number.
+  Never plot a number the text doesn't support; tooltips show the verbatim prose.
+- Hardware families use a fixed cool-toned categorical palette
+  (`components/charts/chartTheme.ts`): ACME blue, MDCA cyan, MSG periwinkle,
+  Saffire sand, Other slate. **Ember stays out of charts** — the only ember on a
+  chart is an Earth / 1g reference marker.
+- Moon-base zone = flame-blue shaded region (≥30% O₂, ≤10.2 psi). The O₂-vs-pressure
+  map is the hero; only BRE and FLEX-2 reach that zone, and that's the point.
+- Every mark links to its PSI entry; every tooltip cites the PSI ID. Animations
+  run once on scroll-in and re-run on data change (zoom/filter re-mount), 300–800 ms,
+  transform/opacity only, off under reduced motion (final state shown).
+
 ## 5. Voice
 
 - Plain verbs, sentence case, no filler. CTAs say where they go

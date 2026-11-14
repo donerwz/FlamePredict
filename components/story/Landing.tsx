@@ -175,7 +175,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         <p className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </p>
-        <p className="readout readout--dim">NASA PSI / {totalTb} TB</p>
+        <p className="readout readout--dim">NASA SPACE APPS 2026 / CREATED BY WENTAO AND GORDON</p>
       </header>
 
       <main>

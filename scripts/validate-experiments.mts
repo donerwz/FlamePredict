@@ -9,7 +9,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { ExperimentsFileSchema } from "../lib/schema.ts";
+import { ExperimentsFileSchema, ConditionsFileSchema } from "../lib/schema.ts";
 import {
   DEFAULT_WEIGHTS,
   computeScore,
@@ -18,9 +18,11 @@ import {
 } from "../lib/score.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const jsonPath = join(here, "..", "data", "experiments.json");
+const dataDir = join(here, "..", "data");
 
-const raw: unknown = JSON.parse(readFileSync(jsonPath, "utf8"));
+const raw: unknown = JSON.parse(
+  readFileSync(join(dataDir, "experiments.json"), "utf8"),
+);
 
 const result = ExperimentsFileSchema.safeParse(raw);
 if (!result.success) {
@@ -33,6 +35,30 @@ const file = result.data;
 console.log(
   `✓ zod: ${file.experiments.length} experiments validated ` +
     `(declared count ${file.count}, total ${file.total_size_tb} TB).`,
+);
+
+// conditions.json: valid schema, and exactly one entry per experiment.
+const condRaw: unknown = JSON.parse(
+  readFileSync(join(dataDir, "conditions.json"), "utf8"),
+);
+const condResult = ConditionsFileSchema.safeParse(condRaw);
+if (!condResult.success) {
+  console.error("✗ conditions.json failed zod validation:\n");
+  console.error(JSON.stringify(condResult.error.issues, null, 2));
+  process.exit(1);
+}
+const condAccs = new Set(condResult.data.conditions.map((c) => c.acc));
+const expAccs = new Set(file.experiments.map((e) => e.acc));
+const missing = [...expAccs].filter((a) => !condAccs.has(a));
+const extra = [...condAccs].filter((a) => !expAccs.has(a));
+if (missing.length || extra.length || condAccs.size !== condResult.data.conditions.length) {
+  console.error("✗ conditions.json does not match experiments 1:1");
+  if (missing.length) console.error("  missing:", missing.join(", "));
+  if (extra.length) console.error("  extra:", extra.join(", "));
+  process.exit(1);
+}
+console.log(
+  `✓ zod: ${condResult.data.conditions.length} condition rows validated, one per experiment.`,
 );
 
 // Sanity check: stored score/stars should match lib/score.ts at default weights.

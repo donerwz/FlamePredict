@@ -7,6 +7,7 @@ import {
   overviewStats,
   type ExperimentWithFamily,
 } from "@/lib/stats";
+import { vizExperiments } from "@/lib/conditions";
 
 export const metadata: Metadata = {
   title: "Explore the experiments — FlamePredict",
@@ -29,6 +30,7 @@ export default function ExplorePage() {
         stats={overviewStats()}
         top={experimentsByRank.slice(0, 5)}
         all={all}
+        viz={vizExperiments()}
       />
     </Suspense>
   );

@@ -1,0 +1,29 @@
+{
+  "note": "Numeric envelopes hand-extracted from the prose fields (oxygen/flow/pressure) of data/experiments.json for charting. null = no number stated in the source text. Pressures are psia; values given in atm were converted at 1 atm = 14.696 psia. 'Cabin pressure' is recorded as ~14.7 psia. gravity: microgravity = ISS/Cygnus freefall, ground = 1g lab, modeling = computational (no physical gravity).",
+  "conditions": [
+    { "acc": "PSI-20",  "o2_min": 21,   "o2_max": 34,   "psia_min": 8.2,  "psia_max": 14.7, "flow_min": 0,   "flow_max": 0,   "gravity": "microgravity" },
+    { "acc": "PSI-69",  "o2_min": null, "o2_max": null, "psia_min": 7.35, "psia_max": 22.04, "flow_min": 0,  "flow_max": 0,   "gravity": "microgravity" },
+    { "acc": "PSI-25",  "o2_min": null, "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 0,   "flow_max": 40,  "gravity": "microgravity" },
+    { "acc": "PSI-68",  "o2_min": 10,   "o2_max": 40,   "psia_min": 7.35, "psia_max": 44.09, "flow_min": 0,  "flow_max": 0,   "gravity": "microgravity" },
+    { "acc": "PSI-26",  "o2_min": null, "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 0,   "flow_max": 40,  "gravity": "microgravity" },
+    { "acc": "PSI-99",  "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 20,  "flow_max": 30,  "gravity": "microgravity" },
+    { "acc": "PSI-159", "o2_min": null, "o2_max": 85,   "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-22",  "o2_min": 21,   "o2_max": 21,   "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-62",  "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "modeling" },
+    { "acc": "PSI-10",  "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-101", "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-98",  "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 20,  "flow_max": 20,  "gravity": "microgravity" },
+    { "acc": "PSI-100", "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 30,  "flow_max": 30,  "gravity": "microgravity" },
+    { "acc": "PSI-21",  "o2_min": 21,   "o2_max": 21,   "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-102", "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-115", "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "modeling" },
+    { "acc": "PSI-107", "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": 5.4, "flow_max": 65,  "gravity": "microgravity" },
+    { "acc": "PSI-23",  "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-39",  "o2_min": null, "o2_max": null, "psia_min": 3.67, "psia_max": 73.48, "flow_min": 0,  "flow_max": 0,   "gravity": "microgravity" },
+    { "acc": "PSI-106", "o2_min": 21,   "o2_max": 21,   "psia_min": 14.7, "psia_max": 14.7, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-60",  "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "modeling" },
+    { "acc": "PSI-47",  "o2_min": null, "o2_max": null, "psia_min": 14.7, "psia_max": 14.7, "flow_min": null, "flow_max": null, "gravity": "microgravity" },
+    { "acc": "PSI-142", "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "ground" },
+    { "acc": "PSI-117", "o2_min": null, "o2_max": null, "psia_min": null, "psia_max": null, "flow_min": null, "flow_max": null, "gravity": "modeling" }
+  ]
+}

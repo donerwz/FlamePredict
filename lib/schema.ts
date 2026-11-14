@@ -78,3 +78,30 @@ export const ExperimentsFileSchema = z
 export type Role = z.infer<typeof RoleSchema>;
 export type Experiment = z.infer<typeof ExperimentSchema>;
 export type ExperimentsFile = z.infer<typeof ExperimentsFileSchema>;
+
+// --- data/conditions.json (Phase 5): numeric envelopes for charts ---
+// Kept here (no data imports) so it can be validated at build time and by the
+// standalone validate script. The merge with experiments lives in lib/conditions.ts.
+
+export const GRAVITY_TAGS = ["microgravity", "ground", "modeling"] as const;
+
+const nullableNumber = z.number().nullable();
+
+export const ConditionSchema = z.object({
+  acc: z.string().min(1),
+  o2_min: nullableNumber,
+  o2_max: nullableNumber,
+  psia_min: nullableNumber,
+  psia_max: nullableNumber,
+  flow_min: nullableNumber,
+  flow_max: nullableNumber,
+  gravity: z.enum(GRAVITY_TAGS),
+});
+
+export const ConditionsFileSchema = z.object({
+  note: z.string(),
+  conditions: z.array(ConditionSchema).min(1),
+});
+
+export type GravityTag = (typeof GRAVITY_TAGS)[number];
+export type Condition = z.infer<typeof ConditionSchema>;
