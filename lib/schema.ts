@@ -105,3 +105,49 @@ export const ConditionsFileSchema = z.object({
 
 export type GravityTag = (typeof GRAVITY_TAGS)[number];
 export type Condition = z.infer<typeof ConditionSchema>;
+
+// --- data/pages.json (Phase 7): prewritten copy for Moon / Learned / Next ---
+
+export const PageItemSchema = z.object({
+  title: z.string().min(1),
+  text: z.string().min(1),
+  /** PSI IDs this claim rests on; resolved to DOI links in lib/pages.ts. */
+  cites: z.array(z.string().regex(/^PSI-\d+$/)),
+  /** Claim also (or only) rests on the NASA Space Apps challenge brief. */
+  brief: z.boolean().optional(),
+  /** Restates a hypothesis, not an established result. */
+  hypothesis: z.boolean().optional(),
+});
+
+export const PageSectionSchema = z.object({
+  heading: z.string().min(1),
+  intro: z.string().optional(),
+  items: z.array(PageItemSchema).min(1),
+});
+
+const pageBase = {
+  title: z.string().min(1),
+  lede: z.string().min(1),
+  sections: z.array(PageSectionSchema).min(1),
+};
+
+export const AtmosphereSchema = z.object({
+  name: z.string().min(1),
+  o2: z.string().min(1),
+  pressure: z.string().min(1),
+  note: z.string(),
+});
+
+export const PagesFileSchema = z.object({
+  note: z.string(),
+  /** Optional URL of the challenge brief; empty = show the source tag unlinked. */
+  briefUrl: z.string(),
+  moon: z.object({ ...pageBase, atmospheres: z.array(AtmosphereSchema).min(1) }),
+  learned: z.object(pageBase),
+  next: z.object(pageBase),
+});
+
+export type PageItem = z.infer<typeof PageItemSchema>;
+export type PageSection = z.infer<typeof PageSectionSchema>;
+export type Atmosphere = z.infer<typeof AtmosphereSchema>;
+export type PagesFile = z.infer<typeof PagesFileSchema>;

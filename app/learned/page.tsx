@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import StubPage from "@/components/StubPage";
+import ContentPage from "@/components/content/ContentPage";
+import { pages } from "@/lib/pages";
 
 export const metadata: Metadata = {
   title: "What we learned — FlamePredict",
+  description:
+    "What NASA's microgravity combustion investigations say about preventing, detecting and suppressing fires in space, each claim cited to its PSI DOI.",
 };
 
 export default function LearnedPage() {
+  const { title, lede, sections } = pages.learned;
   return (
-    <StubPage
-      route="/learned"
-      title="What we learned"
-      lede="The synthesis of two decades of microgravity combustion research, grouped by prevention, detection and suppression — each claim cited to its PSI investigation."
-      phase={7}
-    />
+    <ContentPage route="/learned" title={title} lede={lede} sections={sections} />
   );
 }

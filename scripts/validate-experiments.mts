@@ -9,7 +9,11 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { ExperimentsFileSchema, ConditionsFileSchema } from "../lib/schema.ts";
+import {
+  ExperimentsFileSchema,
+  ConditionsFileSchema,
+  PagesFileSchema,
+} from "../lib/schema.ts";
 import {
   DEFAULT_WEIGHTS,
   computeScore,
@@ -57,6 +61,38 @@ if (missing.length || extra.length || condAccs.size !== condResult.data.conditio
   if (extra.length) console.error("  extra:", extra.join(", "));
   process.exit(1);
 }
+
+// pages.json: valid schema, every claim has a source, every cited PSI ID exists.
+const pagesResult = PagesFileSchema.safeParse(
+  JSON.parse(readFileSync(join(dataDir, "pages.json"), "utf8")),
+);
+if (!pagesResult.success) {
+  console.error("✗ pages.json failed zod validation:\n");
+  console.error(JSON.stringify(pagesResult.error.issues, null, 2));
+  process.exit(1);
+}
+const pg = pagesResult.data;
+let claims = 0;
+const badClaims: string[] = [];
+for (const page of [pg.moon, pg.learned, pg.next]) {
+  for (const section of page.sections) {
+    for (const item of section.items) {
+      claims++;
+      if (item.cites.length === 0 && !item.brief) {
+        badClaims.push(`"${item.title}" cites no source`);
+      }
+      for (const acc of item.cites) {
+        if (!expAccs.has(acc)) badClaims.push(`"${item.title}" cites unknown ${acc}`);
+      }
+    }
+  }
+}
+if (badClaims.length) {
+  console.error("✗ pages.json has unsourced or mis-cited claims:");
+  for (const b of badClaims) console.error("  " + b);
+  process.exit(1);
+}
+console.log(`✓ zod: ${claims} page claims validated, each with a PSI or brief source.`);
 console.log(
   `✓ zod: ${condResult.data.conditions.length} condition rows validated, one per experiment.`,
 );

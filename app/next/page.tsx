@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import StubPage from "@/components/StubPage";
+import ContentPage from "@/components/content/ContentPage";
+import { pages } from "@/lib/pages";
 
 export const metadata: Metadata = {
   title: "What we need to do next — FlamePredict",
+  description:
+    "The gaps the data can't yet close: partial-gravity combustion, real solids at elevated oxygen, smoke versus lunar dust, and the cool-flame re-ignition hazard.",
 };
 
 export default function NextStepsPage() {
-  return (
-    <StubPage
-      route="/next"
-      title="What we need to do next"
-      lede="The gaps the data can't yet close: partial-gravity combustion, elevated oxygen on real solids, smoke versus lunar dust, and the cool-flame re-ignition hazard."
-      phase={7}
-    />
-  );
+  const { title, lede, sections } = pages.next;
+  return <ContentPage route="/next" title={title} lede={lede} sections={sections} />;
 }

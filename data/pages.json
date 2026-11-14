@@ -1,0 +1,166 @@
+{
+  "note": "Prewritten copy for the Moon / Learned / Next pages. Every item cites PSI investigations by ID (resolved to DOI links at build time) and/or the NASA Space Apps challenge brief. Experiment claims paraphrase the goal/findings/moon fields of data/experiments.json; items marked hypothesis restate a hypothesis, not a result.",
+  "briefUrl": "",
+  "moon": {
+    "title": "Flames on a Moon base",
+    "lede": "A lunar habitat will not breathe like the ISS. Exploration atmospheres carry more oxygen at lower pressure — and that changes how fire behaves.",
+    "atmospheres": [
+      { "name": "Earth, sea level", "o2": "21%", "pressure": "14.7 psi", "note": "The baseline every material test assumes." },
+      { "name": "ISS cabin", "o2": "≈ 21%", "pressure": "≈ 14.7 psi", "note": "Kept close to Earth air." },
+      { "name": "Spacesuit", "o2": "100%", "pressure": "4.3 psi", "note": "Pure oxygen at low pressure." },
+      { "name": "Moon base and rovers", "o2": "≥ 30%", "pressure": "≤ 10.2 psi", "note": "Over 40% more oxygen than Earth air, at about two-thirds the pressure." }
+    ],
+    "sections": [
+      {
+        "heading": "What the PSI data already shows",
+        "items": [
+          {
+            "title": "Still air does not put the fire out",
+            "text": "BRE burned gas-fed emulations of solid materials in exploration atmospheres with no airflow at all. At 26.5% oxygen and 10.2 psia, and at 34% and 8.2 psia, flames kept burning in a quasi-steady way; the same flames at 21% oxygen self-extinguished quickly. On the ISS, shutting off ventilation starves a fire. In a Moon-base atmosphere it may not.",
+            "cites": ["PSI-20"]
+          },
+          {
+            "title": "Droplet data reaches 40% oxygen",
+            "text": "FLEX-2 burned fuel droplets across oxygen mole fractions from 0.10 to 0.40 and pressures from 0.5 to 3.0 atm, a range that overlaps the atmospheres expected in habitats.",
+            "cites": ["PSI-68"]
+          },
+          {
+            "title": "The highest-oxygen flames in the archive",
+            "text": "CFI-G fed up to 85% oxygen out of a porous burner into a fuel atmosphere — the highest oxygen level in any PSI microgravity test, and the closest analogue to an oxygen-enriched habitat.",
+            "cites": ["PSI-159"]
+          }
+        ]
+      },
+      {
+        "heading": "Partial gravity is the missing axis",
+        "items": [
+          {
+            "title": "No PSI investigation has burned anything at lunar or Martian gravity",
+            "text": "The archive's flight results are all from freefall, and its ground and modelling work covers 1 g and 0 g. The Moon (0.16 g) and Mars (0.38 g) sit between those two bounds, where buoyancy is weak but not absent. Partial-gravity experiments such as LUCI and FM2 are expected to start filling the gap.",
+            "cites": [],
+            "brief": true
+          },
+          {
+            "title": "An electric field can stand in for gravity",
+            "text": "E-FIELD Flames uses an electric field to drive an ion wind through the flame — a body force that stretches or flattens it much as buoyancy would. It is the only PSI dataset that mimics partial gravity, and can help interpolate between 0 g and 1 g.",
+            "cites": ["PSI-22"]
+          }
+        ]
+      }
+    ]
+  },
+  "learned": {
+    "title": "What we learned",
+    "lede": "More than two decades of fires in freefall, read for what they say about keeping a crew alive: stopping fires before they start, noticing them, and putting them out.",
+    "sections": [
+      {
+        "heading": "Prevention",
+        "intro": "Which materials burn, and under what conditions.",
+        "items": [
+          {
+            "title": "Richer atmospheres remove a safety margin",
+            "text": "With no airflow, flames at 21% oxygen went out on their own; in elevated-oxygen exploration atmospheres they kept burning. The result also suggests NASA's cone-calorimeter test (Test 2) could predict microgravity flammability.",
+            "cites": ["PSI-20"]
+          },
+          {
+            "title": "Earth's upward-burn test may not be the worst case",
+            "text": "BASS-II tests the hypothesis that ventilated materials burn as well or better in microgravity than in 1 g, which would mean the standard 1 g upward-burning screen is not conservative for space. BASS results support that hypothesis.",
+            "cites": ["PSI-25", "PSI-26"],
+            "hypothesis": true
+          },
+          {
+            "title": "Slow air is what feeds a fire in orbit",
+            "text": "Without buoyancy, low-speed flow from cabin ventilation is the dominant oxygen supply. Modelling built on BASS imagery aims to reproduce a 'Goldilocks' zone in which flames survive only in a middle range of flow speeds.",
+            "cites": ["PSI-25", "PSI-62"]
+          },
+          {
+            "title": "Fires were tested at realistic scale without a crew",
+            "text": "The Saffire experiments burned large fabric sheets and samples of real spacecraft materials aboard uncrewed Cygnus vehicles after they left the ISS, to measure how fast a large fire grows and to check NASA's material-selection criteria.",
+            "cites": ["PSI-98", "PSI-99", "PSI-100"]
+          }
+        ]
+      },
+      {
+        "heading": "Detection",
+        "intro": "What smoke looks like without gravity, and whether detectors see it.",
+        "items": [
+          {
+            "title": "Smoke particles may be larger in microgravity",
+            "text": "SAME-R works from the hypothesis that microgravity smoke particles are larger and fewer per unit mass, which can stop some detectors from alarming. Post-flight tests validated its assumption that particle sizes follow a lognormal distribution.",
+            "cites": ["PSI-101"],
+            "hypothesis": true
+          },
+          {
+            "title": "The first attempt taught a lesson of its own",
+            "text": "SAME's particle samples came back contaminated, which motivated the reflight; detector response was still determined from the video record.",
+            "cites": ["PSI-102"]
+          },
+          {
+            "title": "Dust and smoke share an instrument",
+            "text": "DAFT proved a particle counter in microgravity using dust; the same instrument later measured smoke. That overlap is the starting point for a lunar problem: dust that could set off smoke alarms.",
+            "cites": ["PSI-47"]
+          },
+          {
+            "title": "Gravity changes how smoke grows",
+            "text": "Simulations built on SAME data explore the hypothesis that without buoyancy, mixing and heat transfer drop, changing particle growth and smoke composition.",
+            "cites": ["PSI-115"],
+            "hypothesis": true
+          }
+        ]
+      },
+      {
+        "heading": "Suppression",
+        "intro": "What it takes to put a fire out, and whether it stays out.",
+        "items": [
+          {
+            "title": "A baseline for choosing extinguishing agents",
+            "text": "FLEX measured how well gaseous suppressants (carbon dioxide, helium, sulfur hexafluoride) work on burning droplets, and builds limiting-oxygen-index diagrams against pressure.",
+            "cites": ["PSI-69"]
+          },
+          {
+            "title": "The agent the ISS already uses was tested on solids",
+            "text": "BASS tested nitrogen as an inert gaseous extinguishing agent on thick, realistic fuels in a controlled flow.",
+            "cites": ["PSI-26"]
+          },
+          {
+            "title": "Out is not always out",
+            "text": "Cool flames, first observed in FLEX, can persist after the visible flame is gone. Follow-on work maps when a fire that looks extinguished may continue as a cool flame, and shows that small residual airflows decide whether cool flames survive.",
+            "cites": ["PSI-69", "PSI-39", "PSI-142", "PSI-117"]
+          }
+        ]
+      }
+    ]
+  },
+  "next": {
+    "title": "What we need to do next",
+    "lede": "The archive is deep where the ISS made testing easy and thin where a Moon base will actually operate. Four gaps stand out.",
+    "sections": [
+      {
+        "heading": "Open gaps",
+        "items": [
+          {
+            "title": "Burn something at partial gravity",
+            "text": "No PSI investigation has run at 0.16 g or 0.38 g. Today the only handles are the 0 g and 1 g bounds, an electric-field stand-in for a body force, and smoke simulations that can be re-run at lunar or Martian gravity. Partial-gravity experiments such as LUCI and FM2 are the expected next step.",
+            "cites": ["PSI-22", "PSI-115"],
+            "brief": true
+          },
+          {
+            "title": "Test real solids in a Moon-base atmosphere",
+            "text": "The elevated-oxygen results come from gas burners emulating solids and from droplets. Real solid samples were burned at or below 21% oxygen, and large-scale tests of real cabin materials ran in cabin air. Nobody in the archive has burned real materials at 30% oxygen and reduced pressure.",
+            "cites": ["PSI-20", "PSI-68", "PSI-25", "PSI-99"]
+          },
+          {
+            "title": "Tell smoke from lunar dust",
+            "text": "Lunar dust could confuse smoke detectors. The dust-instrument data and the smoke particle-size work are a starting point, not an answer: none of the investigations here measured smoke and dust together.",
+            "cites": ["PSI-47", "PSI-101"]
+          },
+          {
+            "title": "Pin down the cool-flame re-ignition hazard",
+            "text": "Cool flames can outlive the visible fire. The droplet experiments, laboratory counterflow flames and simulations describe when they appear and persist; what is missing is what that means for a real habitat fire after suppression.",
+            "cites": ["PSI-39", "PSI-142", "PSI-117", "PSI-159"]
+          }
+        ]
+      }
+    ]
+  }
+}
