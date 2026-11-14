@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from "motion/react";
 import OverviewPanel from "./OverviewPanel";
 import ExperimentsPanel from "@/components/experiments/ExperimentsPanel";
 import VisualizationPanel from "./VisualizationPanel";
+import SimulationPanel from "./SimulationPanel";
 import type { ExperimentWithFamily, OverviewStats } from "@/lib/stats";
 import type { VizExperiment } from "@/lib/conditions";
 import type { Experiment } from "@/lib/schema";
@@ -25,19 +26,6 @@ interface ExploreHubProps {
   top: Experiment[];
   all: ExperimentWithFamily[];
   viz: VizExperiment[];
-}
-
-function TabStub({ title, phase }: { title: string; phase: number }) {
-  return (
-    <div className="max-w-xl py-20">
-      <h2 className="text-xl font-semibold tracking-tight text-icewhite">
-        {title}
-      </h2>
-      <p className="mt-4 border-t border-flame/20 pt-4 text-sm leading-relaxed text-slate">
-        Under construction — this tab arrives in phase {phase} of the build.
-      </p>
-    </div>
-  );
 }
 
 export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
@@ -151,9 +139,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
           {active === "visualization" && (
             <VisualizationPanel viz={viz} totalTb={stats.totalTb} />
           )}
-          {active === "simulation" && (
-            <TabStub title="Flames in Freefall simulation" phase={6} />
-          )}
+          {active === "simulation" && <SimulationPanel viz={viz} />}
         </motion.div>
       </main>
     </div>

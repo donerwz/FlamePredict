@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "motion/react";
-import { ROLES, type Role } from "@/lib/schema";
+import type { Role } from "@/lib/schema";
 import type { HardwareFamily } from "@/lib/stats";
 import type { VizExperiment } from "@/lib/conditions";
 
@@ -11,6 +11,16 @@ interface Props {
   inView: boolean;
   reduced: boolean;
 }
+
+// Local typed list (client components import only types from lib/* so zod and
+// the dataset stay out of the bundle; the Role type still enforces sync).
+const ROLES: Role[] = [
+  "Prevention",
+  "Detection",
+  "Suppression",
+  "Fundamental",
+  "Modeling",
+];
 
 const COLS: (HardwareFamily | "Other")[] = [
   "ACME / CIR",

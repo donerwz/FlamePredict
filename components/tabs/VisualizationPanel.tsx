@@ -22,7 +22,7 @@ export default function VisualizationPanel({ viz, totalTb }: Props) {
       <ChartFrame
         title="Oxygen versus pressure — the money chart"
         blurb="Where each experiment burned, against the atmospheres that matter. Only two investigations reach into the Moon-base zone (richer oxygen, lower pressure) — most sit at cabin air."
-        caption="Boxes span a tested range; points are single conditions. Marks grouped by hardware family; smoke/dust studies and entries without stated numbers are omitted. Pressure axis capped at 16 psia for readability; tooltips cite exact values and PSI IDs."
+        caption="Boxes span a tested range; points are single conditions. Experiments that ran at the same condition (cabin air: 21% O2 @ 14.7 psia) fan out in a ring around it. Marks grouped by hardware family; smoke/dust studies and entries without stated numbers are omitted. Pressure axis capped at 16 psia for readability; tooltips cite exact values and PSI IDs."
       >
         {(inView) => (
           <O2PressureMap items={viz} inView={inView} reduced={reduced} />

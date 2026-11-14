@@ -204,51 +204,113 @@ export default function O2PressureMap({ items, inView, reduced }: Props) {
           </g>
         ))}
 
-        {/* Experiment marks — re-mount (re-animate) on zoom/filter change */}
+        {/* Experiment marks — re-mount (re-animate) on zoom/filter change.
+            Coincident points (many experiments ran at exactly cabin air,
+            21% O₂ @ 14.7 psia) fan out in a ring around the shared condition
+            so each stays visible and hoverable. */}
         <g clipPath="url(#plot-clip)" key={`${zoom}-${[...families].sort().join(",")}`}>
-          {shown.map((e, idx) => {
-            const ox0 = (e.o2Min ?? e.o2Max) as number;
-            const ox1 = (e.o2Max ?? e.o2Min) as number;
-            const py0 = (e.psiaMin ?? e.psiaMax) as number;
-            const py1 = (e.psiaMax ?? e.psiaMin) as number;
-            const isBox = ox0 !== ox1 || py0 !== py1;
-            const color = FAMILY_COLORS[e.family];
-            const famIdx = FAMILY_ORDER.indexOf(e.family);
-            // Deterministic stagger: grouped by family, nudged by order within.
-            const delay = reduced ? 0 : 0.3 + famIdx * 0.12 + (idx % 5) * 0.03;
+          {(() => {
+            const marks = shown.map((e) => {
+              const ox0 = (e.o2Min ?? e.o2Max) as number;
+              const ox1 = (e.o2Max ?? e.o2Min) as number;
+              const py0 = (e.psiaMin ?? e.psiaMax) as number;
+              const py1 = (e.psiaMax ?? e.psiaMin) as number;
+              return {
+                e,
+                ox0,
+                ox1,
+                py0,
+                py1,
+                isBox: ox0 !== ox1 || py0 !== py1,
+                cx: sx((ox0 + ox1) / 2),
+                cy: sy((py0 + py1) / 2),
+                anchorX: 0,
+                anchorY: 0,
+                fanned: false,
+              };
+            });
+            // Fan out point marks that share a coordinate.
+            const groups = new Map<string, number[]>();
+            marks.forEach((m, i) => {
+              if (m.isBox) return;
+              const k = `${Math.round(m.cx)},${Math.round(m.cy)}`;
+              groups.set(k, [...(groups.get(k) ?? []), i]);
+            });
+            for (const idxs of groups.values()) {
+              if (idxs.length < 2) continue;
+              idxs.forEach((mi, j) => {
+                const m = marks[mi];
+                const angle = (j / idxs.length) * Math.PI * 2 - Math.PI / 2;
+                m.anchorX = m.cx;
+                m.anchorY = m.cy;
+                m.cx += Math.cos(angle) * 14;
+                m.cy += Math.sin(angle) * 14;
+                m.fanned = true;
+              });
+            }
 
-            const cx = sx((ox0 + ox1) / 2);
-            const cy = sy((py0 + py1) / 2);
+            return marks.map((m, idx) => {
+              const { e } = m;
+              const color = FAMILY_COLORS[e.family];
+              const famIdx = FAMILY_ORDER.indexOf(e.family);
+              // Deterministic stagger: grouped by family, nudged by order within.
+              const delay = reduced ? 0 : 0.3 + famIdx * 0.12 + (idx % 5) * 0.03;
+              const dotVisible =
+                m.cx >= PLOT.left &&
+                m.cx <= PLOT.right &&
+                m.cy >= PLOT.top &&
+                m.cy <= PLOT.bottom;
 
-            return (
-              <motion.a
-                key={e.acc}
-                href={e.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={reduced ? false : { opacity: 0, y: -16 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
-                transition={{ duration: 0.4, ease: "easeOut", delay }}
-                onMouseMove={(ev) => showTip(e, ev)}
-                onMouseLeave={() => setTip(null)}
-                className="cursor-pointer"
-              >
-                <title>{`${e.acronym} (${e.acc}) — O₂ ${e.oxygen}; pressure ${e.pressure}`}</title>
-                {isBox && (
-                  <rect
-                    x={Math.min(sx(ox0), sx(ox1))}
-                    y={Math.min(sy(py0), sy(py1))}
-                    width={Math.abs(sx(ox1) - sx(ox0)) || 2}
-                    height={Math.abs(sy(py1) - sy(py0)) || 2}
-                    fill={`${color}22`}
-                    stroke={color}
-                    strokeWidth={1.25}
-                  />
-                )}
-                <circle cx={cx} cy={cy} r={isBox ? 3 : 5} fill={color} stroke="#050a14" strokeWidth={1} />
-              </motion.a>
-            );
-          })}
+              return (
+                <motion.a
+                  key={e.acc}
+                  href={e.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={reduced ? false : { opacity: 0, y: -16 }}
+                  animate={inView ? { opacity: 1, y: 0 } : { opacity: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut", delay }}
+                  onMouseMove={(ev) => showTip(e, ev)}
+                  onMouseLeave={() => setTip(null)}
+                  className="cursor-pointer"
+                >
+                  <title>{`${e.acronym} (${e.acc}) — O₂ ${e.oxygen}; pressure ${e.pressure}`}</title>
+                  {m.isBox && (
+                    <rect
+                      x={Math.min(sx(m.ox0), sx(m.ox1))}
+                      y={Math.min(sy(m.py0), sy(m.py1))}
+                      width={Math.abs(sx(m.ox1) - sx(m.ox0)) || 2}
+                      height={Math.abs(sy(m.py1) - sy(m.py0)) || 2}
+                      fill={`${color}22`}
+                      stroke={color}
+                      strokeWidth={1.25}
+                    />
+                  )}
+                  {m.fanned && (
+                    <line
+                      x1={m.anchorX}
+                      y1={m.anchorY}
+                      x2={m.cx}
+                      y2={m.cy}
+                      stroke={`${color}55`}
+                      strokeWidth={1}
+                    />
+                  )}
+                  {/* A box whose midpoint lies off-axis keeps its box only. */}
+                  {dotVisible && (
+                    <circle
+                      cx={m.cx}
+                      cy={m.cy}
+                      r={m.isBox ? 3 : 5}
+                      fill={color}
+                      stroke="#050a14"
+                      strokeWidth={1}
+                    />
+                  )}
+                </motion.a>
+              );
+            });
+          })()}
         </g>
       </svg>
 
