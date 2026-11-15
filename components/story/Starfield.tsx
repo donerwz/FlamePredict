@@ -10,10 +10,10 @@
 
 /** Start point (% of viewport), heading (deg), cycle (s), delay (s). */
 const COMETS = [
-  { top: 14, left: -12, angle: 16, cycle: 13, delay: 1.2 },
-  { top: 6, left: 30, angle: 34, cycle: 19, delay: 6 },
-  { top: 52, left: -12, angle: -10, cycle: 23, delay: 11 },
-  { top: 18, left: 78, angle: 150, cycle: 29, delay: 16 },
+  { top: 14, left: -12, angle: 16, cycle: 60, delay: 1.2 },
+  { top: 6, left: 30, angle: 34, cycle: 75, delay: 15 },
+  { top: 52, left: -12, angle: -10, cycle: 90, delay: 30 },
+  { top: 18, left: 78, angle: 150, cycle: 110, delay: 45 },
 ] as const;
 export default function Starfield() {
   return (

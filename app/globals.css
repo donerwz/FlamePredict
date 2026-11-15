@@ -109,7 +109,7 @@ html.lenis body {
 
   /* ---------- Comets (inside .starfield) ----------
      A tapering tail with a glowing head, sliding along its rotated path.
-     Each crossing takes ~18% of the cycle (2.3–5 s); the rest of the cycle
+     Each crossing takes ~32% of the cycle (4–9 s); the rest of the cycle
      it is invisible. Transform/opacity only; no blur filter. */
   .comet-path {
     position: absolute;
@@ -161,7 +161,7 @@ html.lenis body {
     14% {
       opacity: 0.9;
     }
-    18% {
+    49% {
       transform: translateX(110vw);
       opacity: 0;
     }
