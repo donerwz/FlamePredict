@@ -92,6 +92,10 @@ gravity readout ticks 1.00 g → 0.00 g.
 - Starfield background: three fixed layers of dim blue-white dots
   (alpha ≤ 0.6), parallax-scrubbed slower than content for depth. Stars never
   outshine the flame, and they hold still under reduced motion.
+- Comets: four streaks (2px tapering tail, small glowing head) on co-prime
+  CSS cycles (13–29 s), each crossing ~2–5 s and invisible the rest of the
+  time, so they never read as a loop. Not parallaxed, no blur, hidden under
+  reduced motion.
 
 ## 4. Layout
 
