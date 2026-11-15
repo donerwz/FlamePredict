@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import ContentPage from "@/components/content/ContentPage";
+import MoonBackdrop from "@/components/content/MoonBackdrop";
+import Starfield from "@/components/story/Starfield";
 import { pages } from "@/lib/pages";
 
 export const metadata: Metadata = {
@@ -13,7 +15,20 @@ export default function MoonPage() {
   const briefLabel = "NASA SPACE APPS CHALLENGE BRIEF";
 
   return (
-    <ContentPage route="/moon" title={title} lede={lede} sections={sections}>
+    <ContentPage
+      route="/moon"
+      title={title}
+      lede={lede}
+      sections={sections}
+      backdrop={
+        <>
+          <Starfield />
+          <MoonBackdrop />
+        </>
+      }
+      waitForBackdrop
+      credit="Moon textures: NASA/Goddard Scientific Visualization Studio, from Lunar Reconnaissance Orbiter camera (LROC) colour and laser altimeter (LOLA) elevation maps."
+    >
       <section aria-labelledby="atmospheres-heading" className="mt-14">
         <h2
           id="atmospheres-heading"

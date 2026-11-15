@@ -76,6 +76,10 @@ gravity readout ticks 1.00 g → 0.00 g.
   - Where it lives today: landing beats 1–3 and their stats, the landing flame
     dissolve, Explore tab-panel switches, top-5 overview cards, experiment rows
     entering/leaving on filter, row detail panels, the F/M/P/D axis legend.
+  - Moon base page: the Moon approaches first (three.js, ~2.4 s — the one
+    entrance allowed past 800 ms); header, title and lede then blur-settle in
+    a 130 ms stagger, and the long body and footer fade up without blur
+    (`.after-moon` in `globals.css`).
   - Count-ups: the one speed-driven case. Blur = 6px × (1 − eased progress),
     so the digits blur while they spin fastest and resolve as the number
     lands, then `filter: none` (Data overview stat tiles, treemap total).

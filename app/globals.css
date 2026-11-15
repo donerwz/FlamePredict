@@ -107,6 +107,54 @@ html.lenis body {
       radial-gradient(2.5px 2.5px at 157px 293px, rgba(214, 230, 255, 0.5), transparent);
   }
 
+  /* ---------- Moon backdrop (/moon) ----------
+     Fixed WebGL layer above the starfield, below all content. */
+  .moon-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Content that waits for the Moon. Hidden only when the entrance will
+     actually run (JS on, motion allowed); MoonBackdrop sets data-moon="in"
+     on <html> once the Moon has arrived. Blur-settle, 6px = BLUR_SOFT in
+     lib/motion.ts; the --plain variant is for blocks too large to blur. */
+  @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+    .after-moon {
+      opacity: 0;
+    }
+    [data-moon="in"] .after-moon {
+      animation: after-moon-in 700ms ease-out both;
+      animation-delay: calc(var(--i, 0) * 130ms);
+    }
+    [data-moon="in"] .after-moon--plain {
+      animation-name: after-moon-in-plain;
+    }
+  }
+  @keyframes after-moon-in {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+  @keyframes after-moon-in-plain {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
   /* ---------- Edge blur (homepage top/bottom) ----------
      Progressive blur: three backdrop-blur layers of rising strength, each
      masked so the strongest blur sits at the very edge and fades to nothing,

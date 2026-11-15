@@ -17,6 +17,12 @@ interface ContentPageProps {
   sections: PageSection[];
   /** Rendered between the lede and the sections (e.g. the atmospheres table). */
   children?: React.ReactNode;
+  /** Fixed decorative layers behind the content (starfield, 3D scene). */
+  backdrop?: React.ReactNode;
+  /** Extra footer line, e.g. an image credit. */
+  credit?: string;
+  /** Hold the content back until the backdrop signals it has arrived. */
+  waitForBackdrop?: boolean;
 }
 
 function Sources({ item }: { item: PageItem }) {
@@ -64,11 +70,28 @@ export default function ContentPage({
   lede,
   sections,
   children,
+  backdrop,
+  credit,
+  waitForBackdrop = false,
 }: ContentPageProps) {
+  // Staggered entrance order; `plain` skips the blur on large blocks.
+  const enter = (i: number, plain = false) =>
+    waitForBackdrop
+      ? {
+          className: plain ? "after-moon after-moon--plain" : "after-moon",
+          style: { "--i": i } as React.CSSProperties,
+        }
+      : { className: "", style: undefined };
+  const e = [enter(0), enter(1), enter(2), enter(3, true), enter(4, true)];
+
   return (
     <div className="mx-auto min-h-svh w-full px-[clamp(1rem,3vw,3rem)]">
+      {backdrop}
       <EdgeBlur />
-      <header className="relative z-20 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-6">
+      <header
+        className={`relative z-20 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-6 ${e[0].className}`}
+        style={e[0].style}
+      >
         <Link href="/" className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </Link>
@@ -94,13 +117,20 @@ export default function ContentPage({
       </header>
 
       <main className="pb-24 pt-12 md:pt-20">
-        <h1 className="max-w-3xl text-[clamp(2rem,5vw,3.3rem)] font-bold leading-[1.08] tracking-tight text-icewhite">
+        <h1
+          className={`max-w-3xl text-[clamp(2rem,5vw,3.3rem)] font-bold leading-[1.08] tracking-tight text-icewhite ${e[1].className}`}
+          style={e[1].style}
+        >
           {title}
         </h1>
-        <p className="mt-6 max-w-2xl text-[1.05rem] leading-[1.7] md:text-[1.12rem]">
+        <p
+          className={`mt-6 max-w-2xl text-[1.05rem] leading-[1.7] md:text-[1.12rem] ${e[2].className}`}
+          style={e[2].style}
+        >
           {lede}
         </p>
 
+        <div className={e[3].className} style={e[3].style}>
         {children}
 
         {sections.map((section) => (
@@ -129,9 +159,13 @@ export default function ContentPage({
             </ul>
           </section>
         ))}
+        </div>
       </main>
 
-      <footer className="border-t border-flame/20 pb-24 pt-10">
+      <footer
+        className={`border-t border-flame/20 pb-24 pt-10 ${e[4].className}`}
+        style={e[4].style}
+      >
         <p className="readout readout--dim">
           DATA: NASA PHYSICAL SCIENCES INFORMATICS (PSI)
         </p>
@@ -140,6 +174,11 @@ export default function ContentPage({
           names the NASA Space Apps challenge brief. Built for the NASA Space
           Apps Challenge; not an official NASA product.
         </p>
+        {credit && (
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate">
+            {credit}
+          </p>
+        )}
       </footer>
     </div>
   );
