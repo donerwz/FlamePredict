@@ -53,7 +53,7 @@ function Tile({ x = 0, y = 0, width = 0, height = 0, acc, acronym, sizeLabel, co
           x={x + 6}
           y={y + 16}
           fill="#050a14"
-          style={{ fontSize: 11, fontWeight: 700 }}
+          style={{ fontSize: 11 }}
           fontFamily="var(--font-data), monospace"
         >
           {acronym}

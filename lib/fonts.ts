@@ -28,10 +28,10 @@ export const syne = localFont({
 
 // Data / stylistic accent typeface — numbers, IDs, chart labels, HUD details.
 export const fiveBySeven = localFont({
-  src: [
-    { path: "../fonts/5by7.regular.ttf", weight: "400", style: "normal" },
-    { path: "../fonts/5by7.bold.ttf", weight: "700", style: "normal" },
-  ],
+  // Regular only: nothing on the site sets 5by7 in bold, and the bold file
+  // (fonts/5by7.bold.ttf, ~400 KB) would otherwise be preloaded on every page.
+  src: "../fonts/5by7.regular.ttf",
+  weight: "400",
   variable: "--font-5by7",
   display: "swap",
 });

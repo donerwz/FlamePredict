@@ -5,7 +5,8 @@
 - **Syne** (`Syne-VariableFont_wght.ttf`) → Tailwind `font-sans`, the site
   **default**. Use for most text: headings, body, labels, nav. Usually needs no
   class since it's the default `font-family`.
-- **5by7** (`5by7.regular.ttf` / `5by7.bold.ttf`) → Tailwind `font-data`.
+- **5by7** (`5by7.regular.ttf`) → Tailwind `font-data`. Only the regular weight is
+  loaded; `5by7.bold.ttf` is kept here but unused, to save ~400 KB per page.
   Reserved for **data and stylistic accents around it**: numbers/stat readouts
   (12.35 TB, scores, FPS), PSI IDs, DOIs, chart axis/tick labels, tabular
   values, the data-source header strip, HUD-style flourishes. Not for long-form

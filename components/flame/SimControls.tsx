@@ -169,7 +169,7 @@ export default function SimControls({ params, onChange }: SimControlsProps) {
               >
                 {f.label}
               </span>
-              <span className="ml-auto font-data text-[0.58rem] tracking-[0.08em] text-slate/70">
+              <span className="ml-auto font-data text-[0.58rem] tracking-[0.08em] text-slate">
                 {f.echoes}
               </span>
             </label>

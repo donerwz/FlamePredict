@@ -30,15 +30,18 @@ export default function OverviewPanel({ stats, top }: OverviewPanelProps) {
     (total, role) => total + role.count,
     0,
   );
-  let ringOffset = 0;
-  const roleSlices = stats.roleCounts.map((role) => {
-    const length = roleAssignmentTotal
-      ? (role.count / roleAssignmentTotal) * ROLE_RING_CIRCUMFERENCE
+  const ringLength = (count: number) =>
+    roleAssignmentTotal
+      ? (count / roleAssignmentTotal) * ROLE_RING_CIRCUMFERENCE
       : 0;
-    const slice = { ...role, length, offset: ringOffset };
-    ringOffset += length;
-    return slice;
-  });
+  // Each slice starts where the ones before it end.
+  const roleSlices = stats.roleCounts.map((role, i, roles) => ({
+    ...role,
+    length: ringLength(role.count),
+    offset: roles
+      .slice(0, i)
+      .reduce((sum, prev) => sum + ringLength(prev.count), 0),
+  }));
 
   return (
     <div className="flex flex-col gap-16 pb-20">

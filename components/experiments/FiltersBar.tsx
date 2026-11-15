@@ -90,7 +90,7 @@ export default function FiltersBar({
           onChange={(ev) => onChange({ ...filters, q: ev.target.value })}
           placeholder="Search name, PI, goal…"
           aria-label="Search experiments"
-          className="w-full max-w-xs border-b border-flame/20 bg-transparent pb-1 text-sm text-fog placeholder:text-slate/60 focus:border-flame focus:outline-none"
+          className="w-full max-w-xs border-b border-flame/20 bg-transparent pb-1 text-sm text-fog placeholder:text-slate focus:border-flame focus:outline-none"
         />
         <p className="font-data text-[0.68rem] tracking-[0.12em] text-slate">
           {shown} OF {total} SHOWN

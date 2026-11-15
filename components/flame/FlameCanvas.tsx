@@ -129,6 +129,8 @@ function FpsMeter({ fpsRef }: { fpsRef: FlameCanvasProps["fpsRef"] }) {
 export default function FlameCanvas({ params, reduced, fpsRef }: FlameCanvasProps) {
   return (
     <Canvas
+      role="img"
+      aria-label="Interpretive 3D illustration of the flame for the conditions set below. Its state is given in the text beside it."
       dpr={[1, 1.5]}
       camera={{ position: [0, 0.5, 3.2], fov: 45 }}
       gl={{ antialias: true, alpha: true }}

@@ -135,7 +135,7 @@ export default function RoleHardwareMatrix({ items, inView, reduced }: Props) {
             ))}
           </p>
         ) : (
-          <p className="text-xs text-slate/70">
+          <p className="text-xs text-slate">
             Hover or focus a cell to see which investigations answer that
             safety question with that hardware.
           </p>

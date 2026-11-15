@@ -4,7 +4,7 @@ import Starfield from "@/components/story/Starfield";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FlamePredict — NASA PSI microgravity combustion",
+  title: "FlamePredict - A Way to Understand Microgravity Combustion",
   description:
     "Summarizes, ranks and interprets 24 NASA PSI microgravity combustion investigations for fire safety on spacecraft, the Moon and Mars.",
 };

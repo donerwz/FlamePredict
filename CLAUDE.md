@@ -49,3 +49,5 @@ Next.js (App Router) + TypeScript (strict) · Tailwind CSS · three.js via @reac
 - `npm run dev`: local dev server
 - `npm run build`: production build (must pass before a phase is done)
 - `npm run lint` · `npx tsc --noEmit`: lint and type check
+- `npm run validate`: check every data file against its zod schema and the scoring formula
+- `npm run factcheck`: after a build, diff what the site shows against `data/experiments.json`

@@ -1,17 +1,33 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "motion/react";
 import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import OverviewPanel from "./OverviewPanel";
 import ExperimentsPanel from "@/components/experiments/ExperimentsPanel";
-import VisualizationPanel from "./VisualizationPanel";
-import SimulationPanel from "./SimulationPanel";
 import type { ExperimentWithFamily, OverviewStats } from "@/lib/stats";
 import type { VizExperiment } from "@/lib/conditions";
 import type { Experiment } from "@/lib/schema";
+
+const PanelLoading = () => (
+  <p
+    role="status"
+    className="py-16 font-data text-xs tracking-[0.14em] text-slate"
+  >
+    LOADING…
+  </p>
+);
+
+// The chart library and the simulation only download when their tab opens;
+// the overview and the experiments list are in the page's first load.
+const VisualizationPanel = dynamic(() => import("./VisualizationPanel"), {
+  loading: PanelLoading,
+});
+const SimulationPanel = dynamic(() => import("./SimulationPanel"), {
+  loading: PanelLoading,
+});
 
 const TABS = [
   { key: "overview", label: "Data overview" },
@@ -22,6 +38,32 @@ const TABS = [
 
 type TabKey = (typeof TABS)[number]["key"];
 
+const isTab = (v: string | null): v is TabKey =>
+  TABS.some((t) => t.key === v);
+
+// The active tab lives in the URL (?tab=) so tabs can be deep-linked. It is
+// read through useSyncExternalStore rather than useSearchParams: that hook
+// would opt the whole page out of prerendering, leaving /explore empty until
+// JavaScript loads. Here the server (and no-JS) render is the overview tab,
+// and the client switches to the linked tab on hydration.
+const TAB_EVENT = "flamepredict:tab";
+
+function subscribeTab(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  window.addEventListener(TAB_EVENT, onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+    window.removeEventListener(TAB_EVENT, onChange);
+  };
+}
+
+function readTab(): TabKey {
+  const param = new URLSearchParams(window.location.search).get("tab");
+  return isTab(param) ? param : "overview";
+}
+
+const serverTab = (): TabKey => "overview";
+
 interface ExploreHubProps {
   stats: OverviewStats;
   top: Experiment[];
@@ -30,20 +72,18 @@ interface ExploreHubProps {
 }
 
 export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const reduced = useReducedMotion();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const param = searchParams.get("tab");
-  const active: TabKey = TABS.some((t) => t.key === param)
-    ? (param as TabKey)
-    : "overview";
+  const active = useSyncExternalStore(subscribeTab, readTab, serverTab);
 
   const select = (key: TabKey) => {
-    router.replace(key === "overview" ? "/explore" : `/explore?tab=${key}`, {
-      scroll: false,
-    });
+    window.history.replaceState(
+      null,
+      "",
+      key === "overview" ? "/explore" : `/explore?tab=${key}`,
+    );
+    window.dispatchEvent(new Event(TAB_EVENT));
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -61,6 +101,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
 
   return (
     <div className="mx-auto min-h-svh w-full px-[clamp(1rem,3vw,3rem)]">
+      <h1 className="sr-only">Explore the experiments</h1>
       <header className="flex items-baseline justify-between gap-6 py-6">
         <Link
           href="/"

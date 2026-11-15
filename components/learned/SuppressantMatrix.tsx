@@ -70,7 +70,7 @@ export default function SuppressantMatrix() {
                   return (
                     <td key={f.id} className="py-4 pr-4">
                       {cell.length === 0 ? (
-                        <span className="text-slate/60">
+                        <span className="text-slate">
                           <span aria-hidden="true">—</span>
                           <span className="sr-only">No investigation</span>
                         </span>
