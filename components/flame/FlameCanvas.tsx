@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
+import "@/lib/threeConsole";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
