@@ -15,6 +15,8 @@ interface ContentPageProps {
   title: string;
   lede: string;
   sections: PageSection[];
+  /** Optional visual paired with each item, in section order. */
+  itemVisuals?: React.ReactNode[];
   /** Rendered between the lede and the sections (e.g. the atmospheres table). */
   children?: React.ReactNode;
   /** Fixed decorative layer behind the content (e.g. the Moon scene). */
@@ -69,6 +71,7 @@ export default function ContentPage({
   title,
   lede,
   sections,
+  itemVisuals,
   children,
   backdrop,
   credit,
@@ -83,6 +86,7 @@ export default function ContentPage({
         }
       : { className: "", style: undefined };
   const e = [enter(0), enter(1), enter(2), enter(3, true), enter(4, true)];
+  let itemVisualIndex = 0;
 
   return (
     <div className="mx-auto min-h-svh w-full px-[clamp(1rem,3vw,3rem)]">
@@ -142,20 +146,50 @@ export default function ContentPage({
               <p className="mt-2 text-sm text-slate">{section.intro}</p>
             )}
             <ul className="mt-6">
-              {section.items.map((item) => (
-                <li
-                  key={item.title}
-                  className="grid gap-x-10 gap-y-3 border-t border-flame/20 py-7 md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]"
-                >
-                  <h3 className="text-lg font-semibold leading-snug text-icewhite">
-                    {item.title}
-                  </h3>
-                  <div className="max-w-2xl">
-                    <p className="text-[0.98rem] leading-[1.7]">{item.text}</p>
-                    <Sources item={item} />
-                  </div>
-                </li>
-              ))}
+              {section.items.map((item) => {
+                const visual = itemVisuals?.[itemVisualIndex++];
+                return (
+                  <li
+                    key={item.title}
+                    className={`grid gap-x-10 gap-y-3 border-t border-flame/20 py-7 ${
+                      visual
+                        ? "md:grid-cols-[minmax(0,13rem)_minmax(0,1fr)] md:items-center"
+                        : "md:grid-cols-[minmax(0,17rem)_minmax(0,1fr)]"
+                    }`}
+                  >
+                    {visual ? (
+                      <>
+                        <div className="flex min-h-28 items-center md:justify-center">
+                          {visual}
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold leading-snug text-icewhite">
+                            {item.title}
+                          </h3>
+                          <div className="mt-3 max-w-3xl">
+                            <p className="text-[0.98rem] leading-[1.7]">
+                              {item.text}
+                            </p>
+                            <Sources item={item} />
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="text-lg font-semibold leading-snug text-icewhite">
+                          {item.title}
+                        </h3>
+                        <div className="max-w-2xl">
+                          <p className="text-[0.98rem] leading-[1.7]">
+                            {item.text}
+                          </p>
+                          <Sources item={item} />
+                        </div>
+                      </>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </section>
         ))}

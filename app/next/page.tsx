@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContentPage from "@/components/content/ContentPage";
+import NextGapVisual from "@/components/content/NextGapVisual";
 import { pages } from "@/lib/pages";
 
 export const metadata: Metadata = {
@@ -10,5 +11,18 @@ export const metadata: Metadata = {
 
 export default function NextStepsPage() {
   const { title, lede, sections } = pages.next;
-  return <ContentPage route="/next" title={title} lede={lede} sections={sections} />;
+  return (
+    <ContentPage
+      route="/next"
+      title={title}
+      lede={lede}
+      sections={sections}
+      itemVisuals={[
+        <NextGapVisual key="gravity" kind="gravity" />,
+        <NextGapVisual key="materials" kind="materials" />,
+        <NextGapVisual key="dust" kind="dust" />,
+        <NextGapVisual key="cool-flame" kind="cool-flame" />,
+      ]}
+    />
+  );
 }
