@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import type { CSSProperties } from "react";
+import type { CSSProperties, MouseEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,6 +21,56 @@ interface LandingProps {
 
 export default function Landing({ count, totalTb, flight, ground }: LandingProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const leavingRef = useRef(false);
+  const router = useRouter();
+
+  /**
+   * Leaving for the Moon page: the page content blur-settles away (exit
+   * mirror of the entrance), the starfield glides back to rest so it lines
+   * up with the Moon page's static stars, then the route changes and the
+   * Moon rises. Modified clicks and reduced motion navigate normally.
+   */
+  const leaveTo = (href: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    const root = rootRef.current;
+    if (
+      !root ||
+      leavingRef.current ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+    e.preventDefault();
+    leavingRef.current = true;
+    lenisRef.current?.stop();
+    root.style.pointerEvents = "none";
+
+    const go = () => router.push(href);
+    const tl = gsap.timeline({ onComplete: go });
+    tl.to(
+      root.querySelectorAll(
+        ".js-exit-header, #destinations > h2, #destinations li, .js-exit-footer",
+      ),
+      {
+        autoAlpha: 0,
+        y: -24,
+        filter: BLUR_SOFT,
+        duration: 0.6,
+        ease: "power1.in",
+        stagger: 0.05,
+      },
+      0,
+    ).to(
+      root.querySelectorAll(".starfield-layer"),
+      { yPercent: 0, duration: 0.9, ease: "power2.inOut", overwrite: true },
+      0,
+    );
+  };
 
   const destinations = [
     {
@@ -57,6 +108,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({ autoRaf: false });
+    lenisRef.current = lenis;
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
@@ -167,6 +219,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
       ctx.revert();
       gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisRef.current = null;
       delete root.dataset.motion;
     };
   }, []);
@@ -182,7 +235,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         Skip the story
       </a>
 
-      <header className="absolute inset-x-0 top-0 z-20 flex items-baseline justify-between px-[clamp(1.25rem,6vw,5.5rem)] py-6">
+      <header className="js-exit-header absolute inset-x-0 top-0 z-20 flex items-baseline justify-between px-[clamp(1.25rem,6vw,5.5rem)] py-6">
         <p className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </p>
@@ -264,6 +317,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
               <li key={d.href} className="border-t border-flame/20">
                 <Link
                   href={d.href}
+                  onClick={d.href === "/moon" ? leaveTo(d.href) : undefined}
                   style={{
                     "--destination-image": `url('${d.image}')`,
                     "--destination-image-position": d.href === "/learned" ? "center 24%" : "center",
@@ -288,7 +342,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         </section>
       </main>
 
-      <footer className="mx-auto w-full border-t border-flame/20 px-[clamp(1rem,3vw,3rem)] pb-24 pt-10">
+      <footer className="js-exit-footer mx-auto w-full border-t border-flame/20 px-[clamp(1rem,3vw,3rem)] pb-24 pt-10">
         <p className="readout readout--dim">
           DATA: NASA PHYSICAL SCIENCES INFORMATICS (PSI)
         </p>
