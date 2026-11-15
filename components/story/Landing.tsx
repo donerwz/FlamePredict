@@ -252,11 +252,11 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
           <Flame />
 
           <div className="beat js-beat1">
-            <h1 className="text-[clamp(2rem,5vw,3.3rem)] font-bold leading-[1.08] tracking-tight text-icewhite">
+            <h1 className="text-[clamp(2.6rem,min(6.4vw,9.5svh),5.75rem)] font-bold leading-[1.02] tracking-tight text-icewhite">
               Understanding flames in microgravity is essential for space
               exploration.
             </h1>
-            <p className="mt-6 text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
+            <p className="mt-6 max-w-[34rem] text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
               Fire has shadowed every era of spaceflight — Apollo 1, Apollo 13,
               the fire aboard Mir, the smoke alarm that sounded on Artemis II.
               Before people live and work on the Moon, we need to know exactly
@@ -265,10 +265,10 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
           </div>
 
           <div className="beat js-beat2">
-            <h2 className="text-[clamp(1.7rem,3.6vw,2.6rem)] font-bold leading-[1.1] tracking-tight text-icewhite">
+            <h2 className="text-[clamp(2.2rem,min(5.2vw,8svh),4.6rem)] font-bold leading-[1.04] tracking-tight text-icewhite">
               In orbit, a flame has no up.
             </h2>
-            <p className="mt-6 text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
+            <p className="mt-6 max-w-[34rem] text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
               On Earth, buoyancy does the work: hot gas rises, fresh air sweeps
               in below, and the flame stretches into a teardrop. Remove gravity
               and nothing rises — oxygen reaches the flame only by slow
@@ -283,10 +283,10 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
           </div>
 
           <div className="beat js-beat3">
-            <h2 className="text-[clamp(1.7rem,3.6vw,2.6rem)] font-bold leading-[1.1] tracking-tight text-icewhite">
+            <h2 className="text-[clamp(2.2rem,min(5.2vw,8svh),4.6rem)] font-bold leading-[1.04] tracking-tight text-icewhite">
               So NASA set fires in freefall.
             </h2>
-            <p className="mt-6 text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
+            <p className="mt-6 max-w-[34rem] text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
               For more than two decades, researchers burned droplets, fabrics
               and gases aboard the ISS and uncrewed Cygnus vehicles, publishing
               the results through the Physical Sciences Informatics repository.
