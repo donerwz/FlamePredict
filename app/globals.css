@@ -381,38 +381,4 @@ html.lenis body {
     color: var(--color-slate);
   }
 
-  /* ---------- Gravity meter (motion mode, desktop only) ---------- */
-  .gmeter {
-    display: none;
-  }
-  @media (min-width: 768px) {
-    [data-motion="on"] .gmeter {
-      position: absolute;
-      left: clamp(1rem, 3vw, 2.5rem);
-      top: 50%;
-      translate: 0 -50%;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-data), monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      color: var(--color-slate);
-    }
-  }
-  .gmeter-track {
-    position: relative;
-    width: 2px;
-    height: 9rem;
-    background: rgba(132, 149, 178, 0.25);
-    overflow: hidden;
-  }
-  .gmeter-fill {
-    position: absolute;
-    inset: 0;
-    background: var(--color-ember);
-    transform-origin: bottom;
-  }
 }
