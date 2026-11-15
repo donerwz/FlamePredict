@@ -151,3 +151,71 @@ export type PageItem = z.infer<typeof PageItemSchema>;
 export type PageSection = z.infer<typeof PageSectionSchema>;
 export type Atmosphere = z.infer<typeof AtmosphereSchema>;
 export type PagesFile = z.infer<typeof PagesFileSchema>;
+
+// --- data/learned-visuals.json: facts and copy for the /learned visuals ---
+
+const psiId = z.string().regex(/^PSI-\d+$/);
+
+export const AGENT_USES = ["suppressant", "diluent"] as const;
+
+export const SuppressantEntrySchema = z.object({
+  agent: z.string().min(1),
+  fuel: z.string().min(1),
+  acc: psiId,
+  /** Tested as an extinguishing agent, or only used to dilute. */
+  use: z.enum(AGENT_USES),
+  /** Verbatim phrase from the experiment record that supports the entry. */
+  source: z.string().min(1),
+});
+
+export const LearnedVisualsSchema = z.object({
+  note: z.string(),
+  roles: z.object({
+    note: z.string().min(1),
+    remainderLabel: z.string().min(1),
+  }),
+  suppressants: z.object({
+    title: z.string().min(1),
+    blurb: z.string().min(1),
+    caption: z.string().min(1),
+    legend: z.object({
+      suppressant: z.string().min(1),
+      diluent: z.string().min(1),
+    }),
+    agents: z
+      .array(
+        z.object({
+          id: z.string().min(1),
+          name: z.string().min(1),
+          formula: z.string().min(1),
+        }),
+      )
+      .min(1),
+    fuels: z
+      .array(z.object({ id: z.string().min(1), name: z.string().min(1) }))
+      .min(1),
+    entries: z.array(SuppressantEntrySchema).min(1),
+  }),
+  coolFlame: z.object({
+    title: z.string().min(1),
+    blurb: z.string().min(1),
+    caption: z.string().min(1),
+    cites: z.array(psiId).min(1),
+    labels: z.object({
+      yAxis: z.string().min(1),
+      xAxis: z.string().min(1),
+      hot: z.string().min(1),
+      event: z.string().min(1),
+      looksOut: z.string().min(1),
+      cool: z.string().min(1),
+      persists: z.string().min(1),
+      quenches: z.string().min(1),
+      decider: z.string().min(1),
+    }),
+    alt: z.string().min(1),
+  }),
+});
+
+export type AgentUse = (typeof AGENT_USES)[number];
+export type SuppressantEntry = z.infer<typeof SuppressantEntrySchema>;
+export type LearnedVisuals = z.infer<typeof LearnedVisualsSchema>;

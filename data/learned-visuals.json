@@ -1,0 +1,62 @@
+{
+  "note": "Prewritten copy and hand-extracted facts for the visuals on /learned. Every matrix entry quotes the phrase in data/experiments.json it rests on (`source`). 'suppressant' = the investigation tested the gas as an extinguishing agent; 'diluent' = the gas was only used to dilute the fuel or atmosphere, which is not a suppression test.",
+  "roles": {
+    "note": "An investigation can serve more than one role, so the counts overlap.",
+    "remainderLabel": "further investigations are fundamental or modelling work with no direct fire-safety role."
+  },
+  "suppressants": {
+    "title": "Which agents were tested on which fuels",
+    "blurb": "Each tag is an investigation that used the gas on that kind of fuel. Only two investigations tested a gas as an extinguishing agent; the rest used it to dilute the flame.",
+    "caption": "SOURCE: FUEL, VARIABLES AND OXYGEN FIELDS OF EACH PSI RECORD. EMPTY CELL = NO PSI INVESTIGATION STATES THIS PAIRING.",
+    "legend": {
+      "suppressant": "Tested as an extinguishing agent",
+      "diluent": "Used as a diluent only"
+    },
+    "agents": [
+      { "id": "N2", "name": "Nitrogen", "formula": "N2" },
+      { "id": "CO2", "name": "Carbon dioxide", "formula": "CO2" },
+      { "id": "He", "name": "Helium", "formula": "He" },
+      { "id": "SF6", "name": "Sulfur hexafluoride", "formula": "SF6" }
+    ],
+    "fuels": [
+      { "id": "gas", "name": "Gas flames" },
+      { "id": "droplet", "name": "Liquid droplets" },
+      { "id": "solid", "name": "Solid materials" }
+    ],
+    "entries": [
+      { "agent": "N2", "fuel": "solid", "acc": "PSI-26", "use": "suppressant", "source": "Cabin air with N2 added as suppressant." },
+      { "agent": "N2", "fuel": "solid", "acc": "PSI-25", "use": "diluent", "source": "O2 reduced by adding nitrogen (vitiation) to find limits." },
+      { "agent": "N2", "fuel": "gas", "acc": "PSI-20", "use": "diluent", "source": "diluent (N2 vs CO2)" },
+      { "agent": "N2", "fuel": "gas", "acc": "PSI-10", "use": "diluent", "source": "Ethylene and methane with N2 or CO2 inert." },
+      { "agent": "N2", "fuel": "gas", "acc": "PSI-23", "use": "diluent", "source": "diluents N2, He, CO2." },
+      { "agent": "N2", "fuel": "gas", "acc": "PSI-159", "use": "diluent", "source": "diluted with N2." },
+      { "agent": "N2", "fuel": "droplet", "acc": "PSI-39", "use": "diluent", "source": "O2 with N2 and He diluents." },
+      { "agent": "CO2", "fuel": "droplet", "acc": "PSI-69", "use": "suppressant", "source": "suppressant (CO2, He, SF6) diluted atmospheres." },
+      { "agent": "CO2", "fuel": "gas", "acc": "PSI-20", "use": "diluent", "source": "diluent (N2 vs CO2)" },
+      { "agent": "CO2", "fuel": "gas", "acc": "PSI-10", "use": "diluent", "source": "Ethylene and methane with N2 or CO2 inert." },
+      { "agent": "CO2", "fuel": "gas", "acc": "PSI-23", "use": "diluent", "source": "diluents N2, He, CO2." },
+      { "agent": "He", "fuel": "droplet", "acc": "PSI-69", "use": "suppressant", "source": "suppressant (CO2, He, SF6) diluted atmospheres." },
+      { "agent": "He", "fuel": "droplet", "acc": "PSI-39", "use": "diluent", "source": "O2 with N2 and He diluents." },
+      { "agent": "He", "fuel": "gas", "acc": "PSI-23", "use": "diluent", "source": "diluents N2, He, CO2." },
+      { "agent": "SF6", "fuel": "droplet", "acc": "PSI-69", "use": "suppressant", "source": "suppressant (CO2, He, SF6) diluted atmospheres." }
+    ]
+  },
+  "coolFlame": {
+    "title": "Out is not always out",
+    "blurb": "What a fire can do after it appears to go out: the hot, visible flame ends, but low-temperature burning carries on as a cool flame.",
+    "caption": "ILLUSTRATIVE SKETCH, NOT MEASURED DATA. NO TEMPERATURES OR TIMES ARE PLOTTED.",
+    "cites": ["PSI-69", "PSI-39", "PSI-142", "PSI-117"],
+    "labels": {
+      "yAxis": "FLAME TEMPERATURE (QUALITATIVE)",
+      "xAxis": "TIME",
+      "hot": "Hot flame, visible",
+      "event": "Visible flame goes out",
+      "looksOut": "LOOKS EXTINGUISHED",
+      "cool": "Cool flame keeps burning",
+      "persists": "Persists",
+      "quenches": "Quenches",
+      "decider": "Small residual airflows decide which"
+    },
+    "alt": "Sketch of flame temperature over time. A hot visible flame burns steadily, then drops sharply when the visible flame goes out. Instead of falling to zero it settles at a low level, a cool flame, which continues through the period when the fire looks extinguished. It then either persists or quenches, depending on small residual airflows."
+  }
+}

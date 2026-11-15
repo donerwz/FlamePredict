@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import ContentPage from "@/components/content/ContentPage";
-import { pages } from "@/lib/pages";
+import CoolFlameTimeline from "@/components/learned/CoolFlameTimeline";
+import RoleStrip from "@/components/learned/RoleStrip";
+import SuppressantMatrix from "@/components/learned/SuppressantMatrix";
+import { learnedVisuals } from "@/lib/learnedVisuals";
+import { pages, resolveCitations } from "@/lib/pages";
 
 export const metadata: Metadata = {
   title: "What we learned — FlamePredict",
@@ -10,7 +14,26 @@ export const metadata: Metadata = {
 
 export default function LearnedPage() {
   const { title, lede, sections } = pages.learned;
+  const { coolFlame } = learnedVisuals;
   return (
-    <ContentPage route="/learned" title={title} lede={lede} sections={sections} />
+    <ContentPage
+      route="/learned"
+      title={title}
+      lede={lede}
+      sections={sections}
+      sectionExtras={{
+        Suppression: (
+          <>
+            <SuppressantMatrix />
+            <CoolFlameTimeline
+              copy={coolFlame}
+              cites={resolveCitations(coolFlame.cites)}
+            />
+          </>
+        ),
+      }}
+    >
+      <RoleStrip sections={sections} />
+    </ContentPage>
   );
 }

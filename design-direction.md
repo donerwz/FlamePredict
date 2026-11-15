@@ -127,6 +127,18 @@ gravity readout ticks 1.00 g → 0.00 g.
   run once on scroll-in and re-run on data change (zoom/filter re-mount), 300–800 ms,
   transform/opacity only, off under reduced motion (final state shown).
 
+## 4b. Learned-page visuals
+
+- Facts and copy live in `data/learned-visuals.json`; each agent/fuel entry
+  quotes the phrase in `experiments.json` it rests on, and the build fails if
+  that phrase is not in the record.
+- Role strip: counts and members come straight from the `role` field.
+- Suppressant matrix: solid flame-blue tag = tested as an extinguishing agent,
+  dashed slate tag = diluent only. Empty cells stay empty — the gaps are the
+  point.
+- Cool-flame timeline: an interpretive sketch with no scale, labelled as such.
+  Segments fade in left to right once on scroll-in (opacity only).
+
 ## 5. Voice
 
 - Plain verbs, sentence case, no filler. CTAs say where they go

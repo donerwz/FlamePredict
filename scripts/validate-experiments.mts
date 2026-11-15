@@ -13,6 +13,7 @@ import {
   ExperimentsFileSchema,
   ConditionsFileSchema,
   PagesFileSchema,
+  LearnedVisualsSchema,
 } from "../lib/schema.ts";
 import {
   DEFAULT_WEIGHTS,
@@ -93,6 +94,43 @@ if (badClaims.length) {
   process.exit(1);
 }
 console.log(`✓ zod: ${claims} page claims validated, each with a PSI or brief source.`);
+
+// learned-visuals.json: valid schema; every matrix entry names a real
+// investigation and quotes a phrase found in that investigation's record.
+const lvResult = LearnedVisualsSchema.safeParse(
+  JSON.parse(readFileSync(join(dataDir, "learned-visuals.json"), "utf8")),
+);
+if (!lvResult.success) {
+  console.error("✗ learned-visuals.json failed zod validation:\n");
+  console.error(JSON.stringify(lvResult.error.issues, null, 2));
+  process.exit(1);
+}
+const lv = lvResult.data;
+const expByAcc = new Map(result.data.experiments.map((e) => [e.acc, e]));
+const lvAgents = new Set(lv.suppressants.agents.map((a) => a.id));
+const lvFuels = new Set(lv.suppressants.fuels.map((f) => f.id));
+const badEntries: string[] = [];
+for (const en of lv.suppressants.entries) {
+  const tag = `${en.acc} ${en.agent}/${en.fuel}`;
+  const e = expByAcc.get(en.acc);
+  if (!e) badEntries.push(`${tag}: unknown investigation`);
+  else if (![e.fuel, e.variables, e.oxygen].join(" ").includes(en.source)) {
+    badEntries.push(`${tag}: source phrase not found in the record`);
+  }
+  if (!lvAgents.has(en.agent)) badEntries.push(`${tag}: unknown agent`);
+  if (!lvFuels.has(en.fuel)) badEntries.push(`${tag}: unknown fuel`);
+}
+for (const acc of lv.coolFlame.cites) {
+  if (!expByAcc.has(acc)) badEntries.push(`coolFlame cites unknown ${acc}`);
+}
+if (badEntries.length) {
+  console.error("✗ learned-visuals.json has unsupported entries:");
+  for (const b of badEntries) console.error("  " + b);
+  process.exit(1);
+}
+console.log(
+  `✓ zod: ${lv.suppressants.entries.length} agent/fuel entries validated against their source phrases.`,
+);
 console.log(
   `✓ zod: ${condResult.data.conditions.length} condition rows validated, one per experiment.`,
 );
