@@ -109,7 +109,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
                 {isActive && (
                   <motion.span
                     layoutId="tab-indicator"
-                    className="absolute inset-x-1 bottom-0 h-0.5 bg-flame"
+                    className="absolute inset-x-1 bottom-0 h-0.5 bg-ember"
                     transition={
                       reduced
                         ? { duration: 0 }

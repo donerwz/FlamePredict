@@ -325,7 +325,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
                   } as CSSProperties}
                   className="destination-link group flex flex-col gap-2 py-7 transition-colors duration-300 ease-out md:flex-row md:items-baseline md:gap-8"
                 >
-                  <span className="readout readout--dim shrink-0 transition-colors duration-300 group-hover:text-flame md:w-28">
+                  <span className="readout readout--dim shrink-0 transition-colors duration-300 group-hover:text-ember md:w-28">
                     {d.href}
                   </span>
                   <span>

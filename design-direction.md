@@ -16,12 +16,26 @@ not "dark mode"; it is the medium.
 | `void` | `#050A14` | Background everywhere. Near-black with a blue undertone (combustion-chamber dark). |
 | `flame` | `#5C9DFF` | Microgravity flame blue. Primary accent: links, data readouts, active states. |
 | `icewhite` | `#D6E6FF` | Hot core. Headings and emphasis text. |
-| `ember` | `#FFA552` | Earth-gravity flame. **Only** for 1g / Earth references (the teardrop flame, gravity meter, Earth zones in charts). Never a generic accent. |
+| `ember` | `#FFA552` | Earth-gravity flame, and the site's secondary accent (see below). |
 | `fog` | `#C7D3E6` | Body text. |
 | `slate` | `#8495B2` | Secondary text, captions. (≈6.5:1 on void — AA at any size.) |
 
-Rule: **amber means gravity, blue means freefall.** If a color choice doesn't
-map to that axis, use the neutrals. All pairs above clear WCAG AA on `void`.
+Two accents, two jobs. **Blue (`flame`) is the data**: links, DOIs, readouts,
+chart marks, bars. **Orange (`ember`) is the reader**: where you are and what
+you have selected or should notice.
+
+Ember is used for:
+- Current location: the active nav link underline, the active Explore tab.
+- Selection and focus: active filter chips, the keyboard focus ring.
+- Ratings and rank: star dots, rank numbers, stage labels.
+- Caution: the HYPOTHESIS tag, the simulation disclaimer.
+- Hover on navigational rows (landing route tags, role-strip stage names).
+- Illustrations: anything at Earth gravity (the teardrop flame, gravity meter).
+
+Ember is never body text, never a link colour, and **stays out of charts**,
+where it would be read as a data series (the one exception is an Earth / 1g
+reference marker). Keep it sparse: a few small marks per screen. All pairs
+above clear WCAG AA on `void`.
 
 ## 2. Typography
 

@@ -18,7 +18,7 @@ export default function Stars({ value, max = 5 }: StarsProps) {
         <span
           key={i}
           className={`h-1.5 w-1.5 rounded-full ${
-            i < value ? "bg-flame" : "bg-flame/15"
+            i < value ? "bg-ember" : "bg-ember/20"
           }`}
         />
       ))}

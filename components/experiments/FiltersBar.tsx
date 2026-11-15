@@ -59,7 +59,7 @@ function Chip({
       onClick={onClick}
       className={`border px-2.5 py-1 text-xs transition-colors duration-300 ${
         active
-          ? "border-flame/50 bg-flame/15 text-icewhite"
+          ? "border-ember/60 bg-ember/15 text-icewhite"
           : "border-flame/15 text-slate hover:text-fog"
       }`}
     >

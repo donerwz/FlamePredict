@@ -51,7 +51,7 @@ export default function ExperimentRow({
       className="border-t border-flame/20"
     >
       <div className="grid gap-x-5 gap-y-2 py-5 md:grid-cols-[3rem_1fr_auto]">
-        <p className="font-data text-sm tabular-nums text-flame">
+        <p className="font-data text-sm tabular-nums text-ember">
           {String(e.liveRank).padStart(2, "0")}
         </p>
 
