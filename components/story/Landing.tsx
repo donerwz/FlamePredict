@@ -95,9 +95,6 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         ease: "sine.inOut",
       });
 
-      const gValue = root.querySelector<HTMLElement>(".js-gvalue");
-      const gState = { g: 1 };
-
       // One scrubbed timeline, position-mapped (units 0–10 across the pin).
       const tl = gsap.timeline({
         defaults: { ease: "none" },
@@ -126,18 +123,6 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
           { autoAlpha: 1, scale: 1, filter: BLUR_SHARP, duration: 1.4, ease: "power1.out" },
           2.8,
         )
-        .to(
-          gState,
-          {
-            g: 0,
-            duration: 1.8,
-            onUpdate: () => {
-              if (gValue) gValue.textContent = `${gState.g.toFixed(2)} g`;
-            },
-          },
-          2.6,
-        )
-        .to(".js-gfill", { scaleY: 0, duration: 1.8 }, 2.6)
         .fromTo(
           ".js-beat2",
           { autoAlpha: 0, y: 36, filter: BLUR_SOFT },
@@ -206,14 +191,6 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
           aria-label="How flames change in microgravity"
         >
           <Flame />
-
-          <div className="gmeter" aria-hidden="true">
-            <span>LOCAL G</span>
-            <span className="gmeter-track">
-              <span className="gmeter-fill js-gfill" />
-            </span>
-            <span className="js-gvalue">1.00 g</span>
-          </div>
 
           <div className="beat js-beat1">
             <h1 className="text-[clamp(2rem,5vw,3.3rem)] font-bold leading-[1.08] tracking-tight text-icewhite">
