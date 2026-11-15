@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,21 +24,25 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
   const destinations = [
     {
       href: "/explore",
+      image: "/textures/destination-explore.webp",
       title: "Explore the experiments",
       desc: `All ${count} investigations ranked for Moon-base relevance — browse, re-weight the ranking, compare.`,
     },
     {
       href: "/moon",
+      image: "/textures/destination-moon.webp",
       title: "Flames on a Moon base",
       desc: "What richer oxygen at lower pressure means for fire risk, and what the data already shows.",
     },
     {
       href: "/learned",
+      image: "/textures/destination-flame.webp",
       title: "What we learned",
       desc: "The synthesis: preventing, detecting and suppressing fires in space.",
     },
     {
       href: "/next",
+      image: "/textures/destination-next.webp",
       title: "What we need to do next",
       desc: "The open gaps: partial gravity, real materials at high oxygen, dust versus smoke.",
     },
@@ -259,7 +264,11 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
               <li key={d.href} className="border-t border-flame/20">
                 <Link
                   href={d.href}
-                  className="group flex flex-col gap-2 py-7 transition-colors duration-300 ease-out hover:bg-flame/5 md:flex-row md:items-baseline md:gap-8"
+                  style={{
+                    "--destination-image": `url('${d.image}')`,
+                    "--destination-image-position": d.href === "/learned" ? "center 24%" : "center",
+                  } as CSSProperties}
+                  className="destination-link group flex flex-col gap-2 py-7 transition-colors duration-300 ease-out md:flex-row md:items-baseline md:gap-8"
                 >
                   <span className="readout readout--dim shrink-0 transition-colors duration-300 group-hover:text-flame md:w-28">
                     {d.href}
