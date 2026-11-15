@@ -31,7 +31,14 @@ export default function VisualizationPanel({ viz, totalTb }: Props) {
 
       <ChartFrame
         title="Airflow coverage"
-        blurb="Forced-flow speed each experiment explored, in cm/s. Quiescent tests (no fan) deliberately mimic a spacecraft with ventilation off; BASS, Saffire and SPICE sweep the low-speed flows that feed fires in microgravity."
+        blurb={
+          <>
+            <strong className="font-semibold text-fog">Airflow speed</strong>{" "}
+            each experiment explored, in cm/s. Quiescent tests (no fan)
+            deliberately mimic a spacecraft with ventilation off; BASS, Saffire
+            and SPICE sweep the low-speed flows that feed fires in microgravity.
+          </>
+        }
         caption="Only experiments with a stated flow range shown. Bars grow from 0 cm/s; values are the tested envelope."
       >
         {(inView) => (
@@ -51,7 +58,14 @@ export default function VisualizationPanel({ viz, totalTb }: Props) {
 
       <ChartFrame
         title="Data volume per investigation"
-        blurb="The 12.35 TB is far from evenly shared — the ACME gas-flame and droplet campaigns dominate, while the modelling studies are kilobytes. Tile area is proportional to data size."
+        blurb={
+          <>
+            The <strong className="font-semibold text-icewhite">{totalTb.toFixed(2)} TB</strong>{" "}
+            is far from evenly shared — the ACME gas-flame and droplet campaigns
+            dominate, while the modelling studies are kilobytes. Tile area is
+            proportional to data size.
+          </>
+        }
         caption="Tiles coloured by hardware family; click any tile for its PSI entry. Hover cites the PSI ID and exact size."
       >
         {(inView) => (
@@ -66,7 +80,13 @@ export default function VisualizationPanel({ viz, totalTb }: Props) {
 
       <ChartFrame
         title="Two decades of fires in freefall"
-        blurb="When each investigation began. The work stretches from 1999 to a cool-flame dataset released in 2025."
+        blurb={
+          <>
+            <strong className="font-semibold text-icewhite">When each investigation began.</strong>{" "}
+            The work stretches from 1999 to a cool-flame dataset released in
+            2025.
+          </>
+        }
         caption="Positioned by the first year in each investigation's date range; two entries without a stated start date are omitted. Click a dot for its PSI entry."
       >
         {(inView) => <Timeline items={viz} inView={inView} reduced={reduced} />}

@@ -5,7 +5,7 @@ import { useInView } from "motion/react";
 
 interface ChartFrameProps {
   title: string;
-  blurb: string;
+  blurb: React.ReactNode;
   caption?: string;
   action?: React.ReactNode;
   /** Receives whether the chart has scrolled into view, to start animations. */
