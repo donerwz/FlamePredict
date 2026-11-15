@@ -17,7 +17,7 @@ interface ContentPageProps {
   sections: PageSection[];
   /** Rendered between the lede and the sections (e.g. the atmospheres table). */
   children?: React.ReactNode;
-  /** Fixed decorative layers behind the content (starfield, 3D scene). */
+  /** Fixed decorative layer behind the content (e.g. the Moon scene). */
   backdrop?: React.ReactNode;
   /** Extra footer line, e.g. an image credit. */
   credit?: string;
@@ -172,7 +172,7 @@ export default function ContentPage({
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate">
           Each claim links to the DOI of the PSI investigation it rests on, or
           names the NASA Space Apps challenge brief. Built for the NASA Space
-          Apps Challenge; not an official NASA product.
+          Apps Challenge.
         </p>
         {credit && (
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate">

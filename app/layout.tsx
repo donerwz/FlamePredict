@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { fiveBySeven, syne } from "@/lib/fonts";
+import Starfield from "@/components/story/Starfield";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${syne.variable} ${fiveBySeven.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/* Site-wide background; stays mounted across client navigations. */}
+        <Starfield />
+        {children}
+      </body>
     </html>
   );
 }

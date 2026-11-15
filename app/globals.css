@@ -296,7 +296,8 @@ html.lenis body {
   .beat {
     position: relative;
     z-index: 2;
-    max-width: 34rem;
+    /* Headings use the full width; body copy caps itself at 34rem. */
+    max-width: 50rem;
     margin-left: clamp(1.25rem, 6vw, 5.5rem);
     margin-right: 1.25rem;
     padding-block: min(8svh, 4rem);
@@ -307,7 +308,7 @@ html.lenis body {
     /* Stay clear of the bottom edge blur on short screens. */
     bottom: max(9svh, 5.5rem);
     margin: 0;
-    max-width: min(34rem, 88vw);
+    max-width: min(50rem, 88vw);
     padding-block: 0;
   }
 
