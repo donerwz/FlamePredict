@@ -9,10 +9,11 @@ const NAV = [
   { href: "/moon", label: "Moon base" },
   { href: "/learned", label: "What we learned" },
   { href: "/next", label: "What's next" },
+  { href: "/feedbacks", label: "Feedbacks" },
 ] as const;
 
 interface ContentPageProps {
-  route: (typeof NAV)[number]["href"];
+  route: "/explore" | "/moon" | "/learned" | "/next";
   title: string;
   lede: string;
   sections: PageSection[];
@@ -226,6 +227,9 @@ export default function ContentPage({
             {credit}
           </p>
         )}
+        <Link href="/feedbacks" className="mt-5 inline-block text-sm font-semibold text-flame hover:underline">
+          View feedbacks →
+        </Link>
       </footer>
     </div>
   );

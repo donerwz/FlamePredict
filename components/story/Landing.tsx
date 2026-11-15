@@ -240,7 +240,10 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         <p className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </p>
-        <p className="readout readout--dim">NASA SPACE APPS 2026 / CREATED BY WENTAO AND GORDON</p>
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <Link href="/feedbacks" className="text-sm font-semibold text-slate hover:text-fog">Feedbacks</Link>
+          <p className="readout readout--dim">NASA SPACE APPS 2026 / CREATED BY WENTAO AND GORDON</p>
+        </div>
       </header>
 
       <main>

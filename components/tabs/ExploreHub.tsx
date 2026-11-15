@@ -116,6 +116,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
         <p className="readout readout--dim md:hidden">
           NASA PSI · {stats.totalTb} TB
         </p>
+        <Link href="/feedbacks" className="text-sm font-semibold text-flame hover:underline">Feedbacks</Link>
       </header>
 
       <nav

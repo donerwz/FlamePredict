@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { fiveBySeven, syne } from "@/lib/fonts";
 import Starfield from "@/components/story/Starfield";
+import SelectionFeedback from "@/components/feedback/SelectionFeedback";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* Site-wide background; stays mounted across client navigations. */}
         <Starfield />
         {children}
+        <SelectionFeedback />
       </body>
     </html>
   );
