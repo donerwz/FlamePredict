@@ -15,19 +15,26 @@ import FiltersBar, { DEFAULT_FILTERS, type Filters } from "./FiltersBar";
 import WeightSliders from "./WeightSliders";
 import CompareTable from "./CompareTable";
 import type { ScoredExperiment } from "./types";
+import type { VizExperiment } from "@/lib/conditions";
 
 const MAX_COMPARE = 3;
 
 export default function ExperimentsPanel({
   all,
+  viz,
 }: {
   all: ExperimentWithFamily[];
+  viz: VizExperiment[];
 }) {
   const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set());
   const [compare, setCompare] = useState<string[]>([]);
   const reduced = useReducedMotion() ?? false;
+  const chartItems = useMemo(
+    () => new Map(viz.map((item) => [item.acc, item])),
+    [viz],
+  );
 
   // Live ranking across ALL experiments (filters narrow the view, not the
   // rank numbers). Rounded scores keep float noise from reordering ties;
@@ -120,6 +127,7 @@ export default function ExperimentsPanel({
               compareDisabled={compare.length >= MAX_COMPARE}
               onToggleCompare={() => toggleCompare(e.acc)}
               reduced={reduced}
+              chartItem={chartItems.get(e.acc)!}
             />
           ))}
         </AnimatePresence>
