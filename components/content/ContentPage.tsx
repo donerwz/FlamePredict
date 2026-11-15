@@ -17,7 +17,7 @@ interface ContentPageProps {
   sections: PageSection[];
   /** Rendered between the lede and the sections (e.g. the atmospheres table). */
   children?: React.ReactNode;
-  /** Fixed decorative layers behind the content (starfield, 3D scene). */
+  /** Fixed decorative layer behind the content (e.g. the Moon scene). */
   backdrop?: React.ReactNode;
   /** Extra footer line, e.g. an image credit. */
   credit?: string;

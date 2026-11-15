@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import ContentPage from "@/components/content/ContentPage";
 import MoonBackdrop from "@/components/content/MoonBackdrop";
-import Starfield from "@/components/story/Starfield";
 import { pages } from "@/lib/pages";
 
 export const metadata: Metadata = {
@@ -20,12 +19,7 @@ export default function MoonPage() {
       title={title}
       lede={lede}
       sections={sections}
-      backdrop={
-        <>
-          <Starfield />
-          <MoonBackdrop />
-        </>
-      }
+      backdrop={<MoonBackdrop />}
       waitForBackdrop
       credit="Moon textures: NASA/Goddard Scientific Visualization Studio, from Lunar Reconnaissance Orbiter camera (LROC) colour and laser altimeter (LOLA) elevation maps."
     >

@@ -1,5 +1,6 @@
 /**
- * Fixed background starfield in three depth layers. Star patterns are CSS
+ * Fixed background starfield in three depth layers, mounted once in
+ * app/layout.tsx so every page shares it. Star patterns are CSS
  * tiles (globals.css); Landing's scroll timeline moves each layer upward at a
  * different rate for parallax. Static (no motion / no JS): stars simply hold.
  * Dim blue-whites only — the flame stays the brightest thing on the page.

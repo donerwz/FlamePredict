@@ -8,7 +8,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import Flame from "./Flame";
-import Starfield from "./Starfield";
 import EdgeBlur from "@/components/EdgeBlur";
 import { BLUR_DISSOLVE, BLUR_SHARP, BLUR_SOFT } from "@/lib/motion";
 
@@ -66,7 +65,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
       },
       0,
     ).to(
-      root.querySelectorAll(".starfield-layer"),
+      document.querySelectorAll(".starfield-layer"),
       { yPercent: 0, duration: 0.9, ease: "power2.inOut", overwrite: true },
       0,
     );
@@ -123,13 +122,16 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
       gsap.set([".js-beat2", ".js-beat3"], { autoAlpha: 0 });
 
       // Starfield parallax: deeper layers drift slower, over the full page.
+      // The starfield lives in the root layout (outside this context's
+      // scope), so look its layers up on the document. ctx.revert() puts
+      // them back at rest when the reader leaves the homepage.
       const starSpeeds: Record<string, number> = {
         ".js-stars-far": -6,
         ".js-stars-mid": -12,
         ".js-stars-near": -20,
       };
       for (const [sel, yPercent] of Object.entries(starSpeeds)) {
-        gsap.to(sel, {
+        gsap.to(document.querySelector(sel), {
           yPercent,
           ease: "none",
           scrollTrigger: {
@@ -226,7 +228,6 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
 
   return (
     <div ref={rootRef}>
-      <Starfield />
       <EdgeBlur />
       <a
         href="#destinations"
