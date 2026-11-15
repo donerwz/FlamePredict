@@ -115,7 +115,7 @@ export default function OverviewPanel({ stats, top }: OverviewPanelProps) {
               transition={{ duration: 0.5, ease: "easeOut", delay: i * 0.08 }}
             >
               <div className="flex items-baseline justify-between">
-                <span className="font-data text-xs tracking-[0.12em] text-flame">
+                <span className="font-data text-xs tracking-[0.12em] text-ember">
                   RANK {e.rank}
                 </span>
                 <span className="font-data text-xs tabular-nums text-slate">

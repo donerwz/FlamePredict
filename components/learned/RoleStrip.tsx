@@ -29,12 +29,12 @@ export default function RoleStrip({ sections }: { sections: PageSection[] }) {
               key={role}
               className="border-t border-flame/20 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0 md:first:border-l-0 md:first:pl-0"
             >
-              <p className="font-data text-[0.68rem] tracking-[0.14em] text-slate">
+              <p className="font-data text-[0.68rem] tracking-[0.14em] text-ember">
                 STAGE {i + 1} OF {STAGES.length}
               </p>
               <a
                 href={`#${sectionId(role)}`}
-                className="mt-2 inline-block text-2xl font-bold tracking-tight text-icewhite transition-colors duration-300 hover:text-flame"
+                className="mt-2 inline-block text-2xl font-bold tracking-tight text-icewhite transition-colors duration-300 hover:text-ember"
               >
                 {role}
               </a>

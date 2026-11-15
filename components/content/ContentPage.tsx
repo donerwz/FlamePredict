@@ -35,7 +35,7 @@ function Sources({ item }: { item: PageItem }) {
   return (
     <p className="mt-3 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-data text-[0.68rem] tracking-[0.1em] text-slate">
       {item.hypothesis && (
-        <span className="border border-slate/40 px-1.5 py-0.5 text-fog">
+        <span className="border border-ember/60 px-1.5 py-0.5 text-ember">
           HYPOTHESIS
         </span>
       )}
@@ -112,7 +112,7 @@ export default function ContentPage({
                   aria-current={n.href === route ? "page" : undefined}
                   className={
                     n.href === route
-                      ? "text-icewhite underline decoration-flame decoration-2 underline-offset-8"
+                      ? "text-icewhite underline decoration-ember decoration-2 underline-offset-8"
                       : "text-slate transition-colors duration-300 hover:text-fog"
                   }
                 >
