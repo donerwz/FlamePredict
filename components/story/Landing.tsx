@@ -350,8 +350,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate">
           Every experiment fact on this site comes from the PSI dataset and
           cites its DOI. The flame illustration is interpretive, not measured.
-          Built for the NASA Space Apps Challenge; not an official NASA
-          product.
+          Built for the NASA Space Apps Challenge.
         </p>
       </footer>
     </div>
