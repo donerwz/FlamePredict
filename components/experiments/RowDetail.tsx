@@ -5,12 +5,15 @@ import { BLUR_SOFT, SETTLED } from "@/lib/motion";
 import RankBar from "./RankBar";
 import type { Weights } from "@/lib/score";
 import type { ExperimentWithFamily } from "@/lib/stats";
+import type { VizExperiment } from "@/lib/conditions";
+import ConditionRangeChart from "./ConditionRangeChart";
 
 interface RowDetailProps {
   e: ExperimentWithFamily;
   weights: Weights;
   reduced: boolean;
   id: string;
+  chartItem: VizExperiment;
 }
 
 function Field({ label, value }: { label: string; value: string }) {
@@ -23,7 +26,13 @@ function Field({ label, value }: { label: string; value: string }) {
 }
 
 /** Expanded panel: the five required field groups plus citations and meta. */
-export default function RowDetail({ e, weights, reduced, id }: RowDetailProps) {
+export default function RowDetail({
+  e,
+  weights,
+  reduced,
+  id,
+  chartItem,
+}: RowDetailProps) {
   return (
     <motion.div
       id={id}
@@ -32,6 +41,8 @@ export default function RowDetail({ e, weights, reduced, id }: RowDetailProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       className="border-t border-flame/10 pb-7 pt-5"
     >
+      <ConditionRangeChart item={chartItem} />
+
       <dl className="grid gap-x-10 gap-y-5 md:grid-cols-2">
         <div className="md:col-span-2">
           <Field label="Goal" value={e.goal} />

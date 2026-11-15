@@ -6,6 +6,7 @@ import Stars from "./Stars";
 import RowDetail from "./RowDetail";
 import type { Weights } from "@/lib/score";
 import type { ScoredExperiment } from "./types";
+import type { VizExperiment } from "@/lib/conditions";
 
 interface ExperimentRowProps {
   e: ScoredExperiment;
@@ -16,6 +17,7 @@ interface ExperimentRowProps {
   compareDisabled: boolean;
   onToggleCompare: () => void;
   reduced: boolean;
+  chartItem: VizExperiment;
 }
 
 export default function ExperimentRow({
@@ -27,6 +29,7 @@ export default function ExperimentRow({
   compareDisabled,
   onToggleCompare,
   reduced,
+  chartItem,
 }: ExperimentRowProps) {
   const detailId = `detail-${e.acc}`;
 
@@ -121,7 +124,13 @@ export default function ExperimentRow({
       </div>
 
       {expanded && (
-        <RowDetail e={e} weights={weights} reduced={reduced} id={detailId} />
+        <RowDetail
+          e={e}
+          weights={weights}
+          reduced={reduced}
+          id={detailId}
+          chartItem={chartItem}
+        />
       )}
     </motion.li>
   );

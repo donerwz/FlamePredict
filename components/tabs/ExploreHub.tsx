@@ -136,7 +136,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {active === "overview" && <OverviewPanel stats={stats} top={top} />}
-          {active === "experiments" && <ExperimentsPanel all={all} />}
+          {active === "experiments" && <ExperimentsPanel all={all} viz={viz} />}
           {active === "visualization" && (
             <VisualizationPanel viz={viz} totalTb={stats.totalTb} />
           )}
