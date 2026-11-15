@@ -253,8 +253,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
 
           <div className="beat js-beat1">
             <h1 className="text-[clamp(2.6rem,min(6.4vw,9.5svh),5.75rem)] font-bold leading-[1.02] tracking-tight text-icewhite">
-              Understanding flames in microgravity is essential for space
-              exploration.
+              Making sure every astronaut comes home safe.
             </h1>
             <p className="mt-6 max-w-[34rem] text-[1.02rem] leading-[1.7] md:text-[1.1rem]">
               Fire has shadowed every era of spaceflight — Apollo 1, Apollo 13,
