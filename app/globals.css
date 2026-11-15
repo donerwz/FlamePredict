@@ -450,4 +450,29 @@ html.lenis body {
     color: var(--color-slate);
   }
 
+  .destination-link {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .destination-link::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(rgba(5, 10, 20, 0.35), rgba(5, 10, 20, 0.35)), var(--destination-image);
+    background-position: var(--destination-image-position, center);
+    background-size: cover;
+    content: "";
+    opacity: 0;
+    transition: opacity 300ms ease-out;
+  }
+  .destination-link > * {
+    position: relative;
+    z-index: 1;
+  }
+  .destination-link:hover::before,
+  .destination-link:focus-visible::before {
+    opacity: 0.5;
+  }
+
 }
