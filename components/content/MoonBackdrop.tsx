@@ -60,11 +60,14 @@ export default function MoonBackdrop() {
     <div className="moon-backdrop" aria-hidden="true">
       <div ref={dimRef} className="h-full w-full">
         <div
-          className={`h-full w-full transition-opacity duration-700 ease-out ${
+          className={`relative h-full w-full transition-opacity duration-700 ease-out ${
             ready ? "opacity-100" : "opacity-0"
           }`}
         >
           <MoonScene reduced={reduced} onReady={onReady} onArrive={reveal} />
+          {/* Shades the terrain toward the bottom edge, where page text sits
+              over it; the limb itself stays bright. Fades in with the Moon. */}
+          <div className="moon-scrim" />
         </div>
       </div>
     </div>

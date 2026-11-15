@@ -54,7 +54,7 @@ export default function SimulationPanel({ viz }: Props) {
               ref={fpsRef}
               className="pointer-events-none absolute right-3 top-3 font-data text-[0.64rem] tabular-nums tracking-[0.12em] text-slate"
             />
-            <p className="pointer-events-none absolute bottom-3 left-3 font-data text-[0.58rem] tracking-[0.1em] text-slate/70">
+            <p className="pointer-events-none absolute bottom-3 left-3 font-data text-[0.58rem] tracking-[0.1em] text-slate">
               DRAG TO ORBIT
             </p>
           </div>

@@ -236,7 +236,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         Skip the story
       </a>
 
-      <header className="js-exit-header absolute inset-x-0 top-0 z-20 flex items-baseline justify-between px-[clamp(1.25rem,6vw,5.5rem)] py-6">
+      <header className="js-exit-header absolute inset-x-0 top-0 z-20 flex flex-col gap-1 px-[clamp(1.25rem,6vw,5.5rem)] py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
         <p className="text-lg font-bold tracking-tight text-icewhite">
           FlamePredict
         </p>

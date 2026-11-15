@@ -128,9 +128,12 @@ export default function O2PressureMap({ items, inView, reduced }: Props) {
         </div>
       </div>
 
+      {/* Below ~640px the chart keeps its size and scrolls sideways, so the
+          axis and zone labels stay legible on phones. */}
+      <div className="overflow-x-auto">
       <svg
         viewBox={`0 0 ${VB.w} ${VB.h}`}
-        className="w-full"
+        className="w-full min-w-[640px]"
         role="img"
         aria-label="Scatter map of tested oxygen concentration versus pressure, with Earth, spacesuit and Moon-base reference regions"
       >
@@ -198,7 +201,9 @@ export default function O2PressureMap({ items, inView, reduced }: Props) {
         {refs.map((r) => (
           <g key={r.label}>
             <circle cx={sx(r.o2)} cy={sy(r.psia)} r={4} fill={r.color} />
-            <text x={sx(r.o2) + (r.o2 > 80 ? -8 : 8)} y={sy(r.psia) + 3} textAnchor={r.o2 > 80 ? "end" : "start"} style={{ fontSize: 10 }} className="fill-fog" fontFamily="var(--font-data), monospace">
+            {/* Labels sit left of their marker, clear of the ring of
+                experiment marks that fans out around cabin air. */}
+            <text x={sx(r.o2) - (r.o2 > 80 ? 8 : 20)} y={sy(r.psia) + 3} textAnchor="end" style={{ fontSize: 10 }} className="fill-fog" fontFamily="var(--font-data), monospace">
               {r.label}
             </text>
           </g>
@@ -313,6 +318,7 @@ export default function O2PressureMap({ items, inView, reduced }: Props) {
           })()}
         </g>
       </svg>
+      </div>
 
       {tip && (
         <div

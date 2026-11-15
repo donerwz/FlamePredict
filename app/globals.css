@@ -185,6 +185,18 @@ html.lenis body {
     pointer-events: none;
   }
 
+  .moon-scrim {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 45svh;
+    background: linear-gradient(
+      to top,
+      rgba(5, 10, 20, 0.86) 0%,
+      rgba(5, 10, 20, 0.62) 38%,
+      transparent 100%
+    );
+  }
+
   /* Content that waits for the Moon. Hidden only when the entrance will
      actually run (JS on, motion allowed); MoonBackdrop sets data-moon="in"
      on <html> once the Moon has arrived. Blur-settle, 6px = BLUR_SOFT in

@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 import ExploreHub from "@/components/tabs/ExploreHub";
 import { experimentsByRank } from "@/lib/experiments";
@@ -17,7 +16,6 @@ export const metadata: Metadata = {
 
 // All data is derived server-side from the zod-validated dataset at build time
 // and handed to the client as props, so client bundles never import the JSON.
-// Suspense is required because ExploreHub reads the ?tab= search param.
 export default function ExplorePage() {
   const all: ExperimentWithFamily[] = experimentsByRank.map((e) => ({
     ...e,
@@ -25,13 +23,11 @@ export default function ExplorePage() {
   }));
 
   return (
-    <Suspense fallback={null}>
-      <ExploreHub
-        stats={overviewStats()}
-        top={experimentsByRank.slice(0, 5)}
-        all={all}
-        viz={vizExperiments()}
-      />
-    </Suspense>
+    <ExploreHub
+      stats={overviewStats()}
+      top={experimentsByRank.slice(0, 5)}
+      all={all}
+      viz={vizExperiments()}
+    />
   );
 }
