@@ -2,6 +2,7 @@ import Link from "next/link";
 import EdgeBlur from "@/components/EdgeBlur";
 import { pages, resolveCitations } from "@/lib/pages";
 import type { PageItem, PageSection } from "@/lib/schema";
+import { sectionId } from "./sectionId";
 
 const NAV = [
   { href: "/explore", label: "Explore" },
@@ -21,6 +22,8 @@ interface ContentPageProps {
   children?: React.ReactNode;
   /** Fixed decorative layer behind the content (e.g. the Moon scene). */
   backdrop?: React.ReactNode;
+  /** Visuals shown at the end of a section, keyed by its heading. */
+  sectionExtras?: Record<string, React.ReactNode>;
   /** Extra footer line, e.g. an image credit. */
   credit?: string;
   /** Hold the content back until the backdrop signals it has arrived. */
@@ -74,6 +77,7 @@ export default function ContentPage({
   itemVisuals,
   children,
   backdrop,
+  sectionExtras,
   credit,
   waitForBackdrop = false,
 }: ContentPageProps) {
@@ -138,7 +142,11 @@ export default function ContentPage({
         {children}
 
         {sections.map((section) => (
-          <section key={section.heading} className="mt-16 md:mt-20">
+          <section
+            key={section.heading}
+            id={sectionId(section.heading)}
+            className="mt-16 scroll-mt-24 md:mt-20"
+          >
             <h2 className="text-2xl font-bold tracking-tight text-icewhite">
               {section.heading}
             </h2>
@@ -191,6 +199,11 @@ export default function ContentPage({
                 );
               })}
             </ul>
+            {sectionExtras?.[section.heading] && (
+              <div className="mt-4 space-y-12">
+                {sectionExtras[section.heading]}
+              </div>
+            )}
           </section>
         ))}
         </div>
