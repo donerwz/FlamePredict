@@ -272,7 +272,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         {/* -------- Destinations -------- */}
         <section
           id="destinations"
-          className="mx-auto max-w-6xl px-[clamp(1.25rem,6vw,5.5rem)] pb-16 pt-24 md:pt-32"
+          className="mx-auto w-full px-[clamp(1rem,3vw,3rem)] pb-16 pt-24 md:pt-32"
         >
           <h2 className="mb-2 text-sm font-semibold text-slate">
             Four ways into the data
@@ -302,7 +302,7 @@ export default function Landing({ count, totalTb, flight, ground }: LandingProps
         </section>
       </main>
 
-      <footer className="mx-auto max-w-6xl border-t border-flame/20 px-[clamp(1.25rem,6vw,5.5rem)] pb-24 pt-10">
+      <footer className="mx-auto w-full border-t border-flame/20 px-[clamp(1rem,3vw,3rem)] pb-24 pt-10">
         <p className="readout readout--dim">
           DATA: NASA PHYSICAL SCIENCES INFORMATICS (PSI)
         </p>

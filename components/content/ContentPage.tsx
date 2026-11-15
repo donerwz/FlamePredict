@@ -66,7 +66,7 @@ export default function ContentPage({
   children,
 }: ContentPageProps) {
   return (
-    <div className="mx-auto min-h-svh max-w-6xl px-[clamp(1.25rem,6vw,5.5rem)]">
+    <div className="mx-auto min-h-svh w-full px-[clamp(1rem,3vw,3rem)]">
       <EdgeBlur />
       <header className="relative z-20 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 py-6">
         <Link href="/" className="text-lg font-bold tracking-tight text-icewhite">

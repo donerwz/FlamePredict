@@ -60,7 +60,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
   };
 
   return (
-    <div className="mx-auto min-h-svh max-w-6xl px-[clamp(1.25rem,6vw,5.5rem)]">
+    <div className="mx-auto min-h-svh w-full px-[clamp(1rem,3vw,3rem)]">
       <header className="flex items-baseline justify-between gap-6 py-6">
         <Link
           href="/"
@@ -78,7 +78,7 @@ export default function ExploreHub({ stats, top, all, viz }: ExploreHubProps) {
       </header>
 
       <nav
-        className="sticky top-0 z-20 -mx-[clamp(1.25rem,6vw,5.5rem)] border-b border-flame/20 bg-void/85 px-[clamp(1.25rem,6vw,5.5rem)] backdrop-blur"
+        className="sticky top-0 z-20 -mx-[clamp(1rem,3vw,3rem)] border-b border-flame/20 bg-void/85 px-[clamp(1rem,3vw,3rem)] backdrop-blur"
         aria-label="Explore sections"
       >
         <div
